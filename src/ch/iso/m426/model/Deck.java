@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,9 +66,9 @@ public class Deck {
                 }
                 sb.append(';');
                 sb.append((card.edition != null ? card.edition : "?") + ";");
-                sb.append((card.manacost != null ? card.manacost : "?") + ";");
-                sb.append((card.ruletext != null ? card.ruletext : "?") + ";");
-                sb.append((card.storytext != null ? card.storytext : "?") + ";");
+                sb.append((card.manaCost != null ? card.manaCost : "?") + ";");
+                sb.append((card.ruleText != null ? card.ruleText : "?") + ";");
+                sb.append((card.storyText != null ? card.storyText : "?") + ";");
                 sb.append((card.attackValue != null ? card.attackValue : "0") + ";");
                 sb.append((card.defenceValue != null ? card.defenceValue : "0") + ";");
                 sb.append('\n');

@@ -1,17 +1,14 @@
 package ch.iso.m426.model;
 
-import java.util.Iterator;
-import java.util.List;
-
 public class Card {
 	
     public String name;
     public String[] types;
     public String[] subtypes;
     public String edition;
-    public String manacost;
-    public String ruletext;
-    public String storytext;
+    public String manaCost;
+    public String ruleText;
+    public String storyText;
     public Byte attackValue;
     public Byte defenceValue;
     
@@ -22,9 +19,9 @@ public class Card {
         this.types = types;
         this.subtypes = subtypes;
         this.edition = edition;
-        this.manacost = manaCost;
-        this.ruletext = ruleText;
-        this.storytext = storyText;
+        this.manaCost = manaCost;
+        this.ruleText = ruleText;
+        this.storyText = storyText;
         this.attackValue = attackValue;
         this.defenceValue = defenceValue;
     }
@@ -40,10 +37,10 @@ public class Card {
             concSubtypes += subType;
         }
         
-        System.out.println(name + " " + manacost);
+        System.out.println(name + " " + manaCost);
         System.out.println(concTypes + " " + concSubtypes + " " + edition);
-        System.out.println(ruletext);
-        System.out.println(storytext);
+        System.out.println(ruleText);
+        System.out.println(storyText);
         System.out.println(attackValue + " " + defenceValue);
     }
 }

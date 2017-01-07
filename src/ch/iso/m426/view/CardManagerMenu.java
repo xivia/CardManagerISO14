@@ -15,7 +15,7 @@ public class CardManagerMenu extends MenuBar {
 	private Menu makeMenuManager() {
 
 		// Menu Entry 1
-		Menu manager = new Menu(Constants.MENU_TITLE_VERWALTEN);
+		Menu manager = new Menu(Constants.MENU_TITLE_MANAGE);
 
 		MenuItem managerCards = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_CARDS);
 		MenuItem managerDeck = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_DECK);
