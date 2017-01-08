@@ -105,4 +105,3 @@ CREATE TABLE  `manacard` (
 INSERT INTO `manacard` (`ManaCardID`, `ManaID`, `CardID`, `quantity`) VALUES
 (1, 3, 1, 1),
 (2, 7, 1, 2);
-
