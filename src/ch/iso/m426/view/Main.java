@@ -18,7 +18,7 @@ public class Main extends Application {
 			BorderPane root = new BorderPane();
 			
 			// Place menu at Top
-			root.setTop(new CardManagerMenu());
+			root.setTop(new CardManagerMenu(root));
 
 			// Set title
 			primaryStage.setTitle("Card-Manager");
