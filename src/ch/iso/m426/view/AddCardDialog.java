@@ -7,11 +7,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
-/**
- * Created by David on 08.01.2017.
- */
-public class AddCardPane extends GridPane{
-    public AddCardPane(Deck deck){
+public class AddCardDialog extends GridPane{
+    public AddCardDialog(Deck deck){
 
         setAlignment(Pos.CENTER);
         setHgap(10);
