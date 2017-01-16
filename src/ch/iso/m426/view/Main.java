@@ -15,7 +15,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
+			BorderPane root = new CardViewPane();
 			
 			// Place menu at Top
 			root.setTop(new CardManagerMenu(root));
