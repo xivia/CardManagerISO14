@@ -57,8 +57,8 @@ public class CardTableView<T> extends TableView<Card> {
         // some static data in the list
         String a[] = {"type1", "type2"};
         Byte b = 1;
-        CardObservableList.get().add(new Card("Test", a, a, "edition 1", "2", "rule", "text", b, b));
-        CardObservableList.get().add(new Card("Test", a, a, "edition 2", "mana cost", "rule", "text", b, b));
+        //CardObservableList.get().add(new Card("Test", a, a, "edition 1", "2", "rule", "text", b, b));
+        //CardObservableList.get().add(new Card("Test", a, a, "edition 2", "mana cost", "rule", "text", b, b));
 
         this.getColumns().addAll(nameCol, typeCol, subtypeCol, editionCol, manaCol, ruleCol, storyCol, attackCol, defCol);
         this.setItems(CardObservableList.get());

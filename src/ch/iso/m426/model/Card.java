@@ -1,53 +1,47 @@
 package ch.iso.m426.model;
 
-import com.sun.deploy.util.StringUtils;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Card {
-	
+
     public String name;
     public String[] types;
-    public String[] subtypes;
     public String edition;
     public String manaCost;
     public String ruleText;
     public String storyText;
+    public String artistName;
     public Byte attackValue;
     public Byte defenceValue;
-    
-    public Card( String name, String[] types, String[] subtypes,
-                      String edition, String manaCost, String ruleText,
-                      String storyText, Byte attackValue, Byte defenceValue){
+
+    public Card( String name, String[] types, String edition, String manaCost, String ruleText,
+                 String storyText, String artistName, Byte attackValue, Byte defenceValue){
         this.name = name;
         this.types = types;
-        this.subtypes = subtypes;
         this.edition = edition;
         this.manaCost = manaCost;
         this.ruleText = ruleText;
         this.storyText = storyText;
+        this.artistName = artistName;
         this.attackValue = attackValue;
         this.defenceValue = defenceValue;
     }
-    
+
     public void printCardInfo(){
         String concTypes = "";
-        String concSubtypes = "";
-        
+
         for(String type : types){
             concTypes += type;
         }
-        for(String subType : subtypes){
-            concSubtypes += subType;
-        }
-        
+
         System.out.println(name + " " + manaCost);
-        System.out.println(concTypes + " " + concSubtypes + " " + edition);
+        System.out.println(concTypes);
         System.out.println(ruleText);
         System.out.println(storyText);
         System.out.println(attackValue + " " + defenceValue);
     }
+
 
     public String getName() {
         return name;
@@ -64,15 +58,6 @@ public class Card {
 
     public void setTypes(String[] types) {
         this.types = types;
-    }
-
-    public String getSubtypes() {
-        String types = Arrays.stream(this.subtypes).collect(Collectors.joining(", "));
-        return types;
-    }
-
-    public void setSubtypes(String[] subtypes) {
-        this.subtypes = subtypes;
     }
 
     public String getEdition() {
