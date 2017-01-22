@@ -4,10 +4,11 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Card {
-
+    public int id;
     public String name;
     public String[] types;
     public String edition;
+    public String color;
     public String manaCost;
     public String ruleText;
     public String storyText;
@@ -15,11 +16,12 @@ public class Card {
     public Byte attackValue;
     public Byte defenceValue;
 
-    public Card( String name, String[] types, String edition, String manaCost, String ruleText,
-                 String storyText, String artistName, Byte attackValue, Byte defenceValue){
+    public Card( String name, String[] types,  String edition, String color, String manaCost,
+                 String ruleText, String storyText, String artistName, Byte attackValue, Byte defenceValue){
         this.name = name;
         this.types = types;
         this.edition = edition;
+        this.color = color;
         this.manaCost = manaCost;
         this.ruleText = ruleText;
         this.storyText = storyText;
@@ -35,6 +37,7 @@ public class Card {
             concTypes += type;
         }
 
+        System.out.println();
         System.out.println(name + " " + manaCost);
         System.out.println(concTypes);
         System.out.println(ruleText);

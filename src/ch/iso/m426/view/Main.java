@@ -1,5 +1,7 @@
 package ch.iso.m426.view;
 	
+import ch.iso.m426.controller.DatabaseHandler;
+import ch.iso.m426.model.Card;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -10,11 +12,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import static ch.iso.m426.controller.DatabaseHandler.*;
+
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+
+			saveCard(new Card("Storm Crow", new String[]{"Storm","Crow"},"Kaladesh","Blue","1U","Win the Game","Storm Crow Departing Winter starting storm crow descending summer ending.","someguy333",(byte)1,(byte)1));
+			Card card = getCard(2);
+
+
+			card.printCardInfo();
+
 			BorderPane root = new CardViewPane();
 			
 			// Place menu at Top
@@ -32,7 +43,7 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
+ 	}
 	
 	public static void main(String[] args) {
 		launch(args);
