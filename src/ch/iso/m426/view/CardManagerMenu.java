@@ -1,6 +1,7 @@
 package ch.iso.m426.view;
 
 import ch.iso.m426.controller.DeckManagementEventHandler;
+import ch.iso.m426.controller.ExitEventHandler;
 import ch.iso.m426.controller.HelpAboutEventHandler;
 import ch.iso.m426.controller.HelpEventHandler;
 import javafx.scene.control.Menu;
@@ -10,11 +11,11 @@ import javafx.scene.layout.BorderPane;
 
 public class CardManagerMenu extends MenuBar {
 
-	private final BorderPane CardManagerBorderPane;
+	private final BorderPane cardManagerBorderPane;
 
-	public CardManagerMenu(BorderPane CardManagerBorderPane) {
+	public CardManagerMenu(BorderPane cardManagerBorderPane) {
 
-		this.CardManagerBorderPane = CardManagerBorderPane;
+		this.cardManagerBorderPane = cardManagerBorderPane;
 
 		// Add MenuEntrys to MenuBar
 		this.getMenus().addAll(makeMenuManager(), makeMenuHelp());
@@ -28,10 +29,11 @@ public class CardManagerMenu extends MenuBar {
 		MenuItem managerCards = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_CARDS);
 
 		MenuItem managerDeck = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_DECK);
-		managerDeck.setOnAction(event -> DeckManagementEventHandler.manageDeck(this.CardManagerBorderPane));
+		managerDeck.setOnAction(new DeckManagementEventHandler(this.cardManagerBorderPane));
 
 		MenuItem managerExit = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_EXIT);
-		
+		managerExit.setOnAction(new ExitEventHandler());
+
 		// Add Items to MenuEntrys
 		manager.getItems().addAll(managerCards, managerDeck, managerExit);
 
