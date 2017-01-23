@@ -9,11 +9,12 @@ import java.util.List;
 
 public class Deck {
 
-    public enum FORMAT{STANDARD, COMMANDER, MODERN}
+    public enum FORMAT { STANDARD, COMMANDER, MODERN }
+
     private String path;
-    public String name;
-    public String description;
-    public FORMAT format;
+    private String name;
+    private String description;
+    private FORMAT format;
     private List<Card> cardList;
 
     public Deck(){
@@ -115,9 +116,7 @@ public class Deck {
     }
 
 
-
     // returns all decks in the folder
-
     public void getAllDecks(String path) {
 
         File folder = new File(path);
@@ -134,6 +133,38 @@ public class Deck {
         } catch (Exception e) {
             System.out.print("Error 404, Pfad existiert nicht oder ist fehlerhaft!");
         }
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public FORMAT getFormat() {
+        return format;
+    }
+
+    public void setFormat(FORMAT format) {
+        this.format = format;
     }
 
 }
