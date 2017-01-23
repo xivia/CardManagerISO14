@@ -57,8 +57,9 @@ public class Deck {
                                 cardInfo[5],
                                 cardInfo[6],
                                 cardInfo[7],
-                                (byte) Byte.parseByte(cardInfo[8]),
-                                (byte) Byte.parseByte(cardInfo[9]))
+                                cardInfo[8],
+                                (byte) Byte.parseByte(cardInfo[9]),
+                                (byte) Byte.parseByte(cardInfo[10]))
                 );
             }
 
@@ -83,6 +84,7 @@ public class Deck {
                     sb.append(type + ':');
                 }
                 sb.append(';');
+                sb.append((card.color != null ? card.color : "?") + ";");
                 sb.append((card.edition != null ? card.edition : "?") + ";");
                 sb.append((card.manaCost != null ? card.manaCost : "?") + ";");
                 sb.append((card.ruleText != null ? card.ruleText : "?") + ";");

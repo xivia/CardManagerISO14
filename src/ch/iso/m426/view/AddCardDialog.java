@@ -1,5 +1,6 @@
 package ch.iso.m426.view;
 
+        import ch.iso.m426.controller.DatabaseHandler;
         import ch.iso.m426.model.Card;
         import ch.iso.m426.model.Deck;
         import javafx.geometry.Insets;
@@ -18,12 +19,14 @@ public class AddCardDialog extends GridPane {
     private TextField tfName = new TextField();
     Label lblEdition = new Label("Edition");
     TextField tfEdition = new TextField();
+    Label lblColor = new Label("Color");
+    TextField tfColor = new TextField();
     Label lblManaCost = new Label("Mana Cost");
     TextField tfManaCost = new TextField();
-    Label lblAttackValue = new Label("Attack");
-    TextField tfAttackValue = new TextField();
-    Label lblDefenceValue = new Label("Defence");
-    TextField tfDefenceValue = new TextField();
+    Label lblAttack = new Label("Attack");
+    TextField tfAttack = new TextField();
+    Label lblDefence = new Label("Defence");
+    TextField tfDefence = new TextField();
     Label lblType = new Label("Types:");
     TextField tfType1 = new TextField();
     TextField tfType2 = new TextField();
@@ -48,12 +51,14 @@ public class AddCardDialog extends GridPane {
         add(tfName, 1, 0);
         add(lblEdition, 0, 1);
         add(tfEdition, 1, 1);
-        add(lblManaCost, 0, 2);
-        add(tfManaCost, 1, 2);
-        add(lblAttackValue, 0, 3);
-        add(tfAttackValue, 1, 3);
-        add(lblDefenceValue, 0, 4);
-        add(tfDefenceValue, 1, 4);
+        add(lblColor, 0, 2);
+        add(tfColor, 1, 2);
+        add(lblManaCost, 0, 3);
+        add(tfManaCost, 1, 3);
+        add(lblAttack, 0, 4);
+        add(tfAttack, 1, 4);
+        add(lblDefence, 0, 5);
+        add(tfDefence, 1, 5);
         add(lblType, 2, 0);
         add(tfType1, 3, 0);
         add(tfType2, 3, 1);
@@ -73,9 +78,9 @@ public class AddCardDialog extends GridPane {
         add(taStoryText, 5, 4, 1, 3);
 
         btnAddCard.setOnAction(event ->
-                deck.addCard(new Card(tfName.getText(), getTypes(), tfEdition.getText(), tfManaCost.getText(),
-                        taRuleText.getText(), taStoryText.getText(), "artist",
-                        Byte.parseByte(tfAttackValue.getText()), Byte.parseByte(tfDefenceValue.getText()))));
+                DatabaseHandler.saveCard(new Card(tfName.getText(), getTypes(), tfEdition.getText(),tfColor.getText(),
+                        tfManaCost.getText(), taRuleText.getText(), taStoryText.getText(), "artist",
+                        Byte.parseByte(tfAttack.getText()), Byte.parseByte(tfDefence.getText()))));
         btnAddCard.setPrefHeight(40);
         btnAddCard.setPrefWidth(100);
         add(btnAddCard, 2, 7, 4, 2);
