@@ -19,13 +19,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-
-			saveCard(new Card("Storm Crow", new String[]{"Storm","Crow"},"Kaladesh","Blue","1U","Win the Game","Storm Crow Departing Winter starting storm crow descending summer ending.","someguy333",(byte)1,(byte)1));
-			Card card = getCard(2);
-
-
-			card.printCardInfo();
-
 			BorderPane root = new CardViewPane();
 			
 			// Place menu at Top
