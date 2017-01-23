@@ -45,7 +45,6 @@ CREATE TABLE `card` (
   `CardDefense` int(11) DEFAULT NULL,
   `CardText` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `CardFlavorText` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `CardPicture` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `CardArtist` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `EdiID` int(11) NOT NULL,
   FOREIGN KEY (`EdiID`) REFERENCES `edition`(`EdiID`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -64,7 +63,7 @@ CREATE TABLE `card` (
 -- Daten für Tabelle `card`
 --
 
-INSERT INTO `card` (`CardID`, `CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardPicture`, `CardArtist`, `EdiID`) VALUES
+INSERT INTO `card` (`CardID`, `CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES
 (1, '', 'Glücksrad', '2R', 'Hexerei', NULL, NULL, 'Alle Spieler müssen ihr Blatt abwerfen und sieben neue Karten ziehen', '', NULL, 'Daniel Gelon', 1);
 
 --
