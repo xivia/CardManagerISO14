@@ -1,9 +1,12 @@
 package ch.iso.m426.view;
 
+import ch.iso.m426.controller.CardManagmentEventHandler;
 import ch.iso.m426.controller.DeckManagementEventHandler;
 import ch.iso.m426.controller.ExitEventHandler;
 import ch.iso.m426.controller.HelpAboutEventHandler;
 import ch.iso.m426.controller.HelpEventHandler;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -27,7 +30,8 @@ public class CardManagerMenu extends MenuBar {
 		Menu manager = new Menu(Constants.MENU_TITLE_MANAGE);
 
 		MenuItem managerCards = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_CARDS);
-
+		managerCards.setOnAction(new CardManagmentEventHandler(cardManagerBorderPane));
+		
 		MenuItem managerDeck = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_DECK);
 		managerDeck.setOnAction(new DeckManagementEventHandler(this.cardManagerBorderPane));
 
