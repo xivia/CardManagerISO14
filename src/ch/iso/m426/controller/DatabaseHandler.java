@@ -21,9 +21,9 @@ public class DatabaseHandler {
             try {
                 Connection con = getDBConnection();
                 Statement stmt = null;
-                String query = "INSERT INTO `card` (`CardName`, `CardColor`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardPicture`, `CardArtist`, `EdiID`) VALUES ('"
+                String query = "INSERT INTO `card` (`CardName`, `CardColor`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText``, `CardArtist`, `EdiID`) VALUES ('"
                         + card.name + "','" + card.color + "','" + card.manaCost + "','" + String.join("-", card.types) + "'," + card.attackValue + "," + card.defenceValue + ",'" + card.ruleText
-                        + "','" + card.storyText + "','" + '?'/*Note: nachfragen=?*/ + "','" + card.artistName + "'," + getEditionNumber(card.edition) + ");";
+                        + "','" + card.storyText + "','" + card.artistName + "'," + getEditionNumber(card.edition) + ");";
                 stmt = con.createStatement();
                 stmt.execute(query);
             } catch (SQLException e) {

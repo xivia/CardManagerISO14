@@ -25,10 +25,6 @@ public class CardTableView<T> extends TableView<Card> {
         typeCol.setCellValueFactory(new PropertyValueFactory<Card, String>("types"));
         typeCol.setPrefWidth(120);
 
-        TableColumn<Card, String> subtypeCol = new TableColumn<Card, String>("Subtype");
-        subtypeCol.setCellValueFactory(new PropertyValueFactory<Card, String>("subtypes"));
-        subtypeCol.setPrefWidth(120);
-
         TableColumn<Card, String> editionCol = new TableColumn<Card, String>("Edition");
         editionCol.setCellValueFactory(new PropertyValueFactory<Card, String>("edition"));
         editionCol.setPrefWidth(120);
@@ -60,7 +56,7 @@ public class CardTableView<T> extends TableView<Card> {
         //CardObservableList.get().add(new Card("Test", a, a, "edition 1", "2", "rule", "text", b, b));
         //CardObservableList.get().add(new Card("Test", a, a, "edition 2", "mana cost", "rule", "text", b, b));
 
-        this.getColumns().addAll(nameCol, typeCol, subtypeCol, editionCol, manaCol, ruleCol, storyCol, attackCol, defCol);
+        this.getColumns().addAll(nameCol, typeCol, editionCol, manaCol, ruleCol, storyCol, attackCol, defCol);
         this.setItems(CardObservableList.get());
         CardObservableList.setTable(this);
 
