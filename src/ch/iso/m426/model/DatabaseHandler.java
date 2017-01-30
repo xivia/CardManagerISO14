@@ -1,4 +1,4 @@
-package ch.iso.m426.controller;
+package ch.iso.m426.model;
 import ch.iso.m426.model.Card;
 
 import javax.xml.crypto.Data;

@@ -1,6 +1,6 @@
 package ch.iso.m426.view;
 
-        import ch.iso.m426.controller.DatabaseHandler;
+        import ch.iso.m426.model.DatabaseHandler;
         import ch.iso.m426.model.Card;
         import ch.iso.m426.model.Deck;
         import javafx.geometry.Insets;
