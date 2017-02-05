@@ -6,15 +6,24 @@ package ch.iso.m426.view;
         import javafx.geometry.Insets;
         import javafx.geometry.Pos;
         import javafx.scene.control.*;
+        import javafx.scene.control.Button;
+        import javafx.scene.control.Label;
+        import javafx.scene.control.TextArea;
+        import javafx.scene.control.TextField;
+        import javafx.scene.layout.Background;
         import javafx.scene.layout.GridPane;
 
+        import javax.xml.crypto.Data;
+        import java.awt.*;
         import java.util.ArrayList;
         import java.util.List;
+
+        import static java.awt.Color.*;
 
 /**
  * Created by David on 08.01.2017.
  */
-public class AddCardDialog extends GridPane {
+public class CreateCardDialog extends GridPane {
     private Label lblName = new Label("Card Name:");
     private TextField tfName = new TextField();
     Label lblEdition = new Label("Edition");
@@ -24,9 +33,9 @@ public class AddCardDialog extends GridPane {
     Label lblManaCost = new Label("Mana Cost");
     TextField tfManaCost = new TextField();
     Label lblAttack = new Label("Attack");
-    TextField tfAttack = new TextField();
+    Spinner tfAttack = new Spinner(0,100,0);
     Label lblDefence = new Label("Defence");
-    TextField tfDefence = new TextField();
+    Spinner tfDefence = new Spinner(0,100,0);
     Label lblType = new Label("Types:");
     TextField tfType1 = new TextField();
     TextField tfType2 = new TextField();
@@ -40,7 +49,7 @@ public class AddCardDialog extends GridPane {
     TextArea taStoryText = new TextArea();
     Button btnAddCard = new Button("Add Card");
 
-    public AddCardDialog(Deck deck) {
+    public CreateCardDialog() {
 
         setAlignment(Pos.CENTER);
         setHgap(10);
@@ -77,24 +86,23 @@ public class AddCardDialog extends GridPane {
         add(lblStoryText, 4, 4);
         add(taStoryText, 5, 4, 1, 3);
 
-        btnAddCard.setOnAction(event ->
-                DatabaseHandler.saveCard(new Card(tfName.getText(), getTypes(), tfEdition.getText(),tfColor.getText(),
-                        tfManaCost.getText(), taRuleText.getText(), taStoryText.getText(), "artist",
-                        Byte.parseByte(tfAttack.getText()), Byte.parseByte(tfDefence.getText()))));
+        btnAddCard.setOnAction(event -> addCardIfValid());
         btnAddCard.setPrefHeight(40);
         btnAddCard.setPrefWidth(100);
         add(btnAddCard, 2, 7, 4, 2);
     }
 
     public String[] getTypes() {
-        List<String> type = new ArrayList<String>();
+        return new String[]{tfType1.getText(), tfType2.getText(), tfType3.getText(), tfType4.getText(), tfType5.getText(), tfType6.getText()};
+    }
 
-        for (String i : new String[]{tfType1.getText(), tfType2.getText(), tfType3.getText(), tfType4.getText(), tfType5.getText(), tfType6.getText()}) {
-            if (i != "") {
-                type.add(i);
-            }
+    private void addCardIfValid() {
+        if (DatabaseHandler.getEditionNumber(tfEdition.getText()) == - 1) {
+            System.out.println("Edition doesn't exist");
+        } else {
+            DatabaseHandler.saveCard(new Card(tfName.getText(), getTypes(), tfEdition.getText(), tfColor.getText(),
+                    tfManaCost.getText(), taRuleText.getText(), taStoryText.getText(), "artistName",
+                    (byte)(int)tfAttack.getValue(),(byte)(int)tfDefence.getValue()));
         }
-
-        return (String[]) type.toArray();
     }
 }
