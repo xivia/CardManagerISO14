@@ -1,9 +1,11 @@
 package ch.iso.m426.model;
-import ch.iso.m426.model.Card;
 
-import javax.xml.crypto.Data;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DatabaseHandler {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -14,7 +16,33 @@ public class DatabaseHandler {
 
     public DatabaseHandler() {}
 
+    public static void getAllDecks(){
+        try {
+            Connection con = getDBConnection();
+            Statement stmt;
 
+            String query = "SELECT * FROM deck";
+
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                String name = rs.getString("DeckName");
+                String formatName = rs.getString("DeckFormat");
+                Deck.FORMAT format = Deck.FORMAT.CASUAL;
+                for(Deck.FORMAT c : Deck.FORMAT.values()){
+                    if(c.name().equals(formatName)){
+                        format = c;
+                    }
+                }
+                Deck deck = new Deck(name, format);
+                DeckObservableList.get().add(deck);
+            }
+
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+    }
     public static void saveCard(Card card){
         int edition = getEditionNumber(card.edition);
         if(edition > -1) {

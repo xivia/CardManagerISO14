@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Deck {
 
-    public enum FORMAT { STANDARD, COMMANDER, MODERN }
+    public enum FORMAT { STANDARD, COMMANDER, MODERN, CASUAL }
 
     private String path;
     private String name;
@@ -31,6 +31,11 @@ public class Deck {
         this.description = description;
         this.path = path;
         cardList = new ArrayList<Card>();
+    }
+
+    public Deck(String name, FORMAT format){
+        this.name = name;
+        this.format = format;
     }
 
     public void addCard(Card card) {

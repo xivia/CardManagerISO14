@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
+import java.util.List;
+
 public class DeckObservableList {
 
     private final static ObservableList<Deck> decks = FXCollections.observableArrayList();
@@ -21,11 +23,4 @@ public class DeckObservableList {
         DeckObservableList.deckTable = table;
     }
 
-    public static void saveData() {
-
-    }
-
-    public static void loadData() {
-
-    }
 }

@@ -1,5 +1,6 @@
 package ch.iso.m426.view;
 
+import ch.iso.m426.model.DatabaseHandler;
 import ch.iso.m426.model.Deck;
 import ch.iso.m426.model.DeckObservableList;
 import javafx.scene.control.TableColumn;
@@ -19,11 +20,11 @@ public class DeckTableView extends TableView<Deck> {
         formatCol.setCellValueFactory(new PropertyValueFactory<Deck, String>("format"));
         formatCol.setPrefWidth(200);
 
-        DeckObservableList.get().add(new Deck("Bla", Deck.FORMAT.STANDARD, "Bla", ""));
-        DeckObservableList.get().add(new Deck("Bsadadla", Deck.FORMAT.STANDARD, "Bldsfsda", ""));
+        DatabaseHandler.getAllDecks();
+        System.out.println(DeckObservableList.get());
 
-        this.getColumns().addAll(nameCol, formatCol);
+        /*this.getColumns().addAll(nameCol, formatCol);
         this.setItems(DeckObservableList.get());
-        DeckObservableList.setTable(this);
+        DeckObservableList.setTable(this);*/
     }
 }
