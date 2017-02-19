@@ -43,6 +43,19 @@ public class DatabaseHandler {
             System.out.println(e);
         }
     }
+
+    public static void saveDeck(Deck deck) {
+        try {
+            Connection con = getDBConnection();
+            Statement stmt = null;
+            String query = "INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES (" + deck.getName() + ", " + deck.getFormat() + ");";
+            stmt = con.createStatement();
+            stmt.execute(query);
+        } catch (SQLException e){
+            System.out.print(e);
+        }
+    }
+
     public static void saveCard(Card card){
         int edition = getEditionNumber(card.edition);
         if(edition > -1) {
