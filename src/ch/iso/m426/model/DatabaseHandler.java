@@ -56,83 +56,144 @@ public class DatabaseHandler {
         }
     }
 
-    public static void saveCard(Card card){
-        int edition = getEditionNumber(card.edition);
-        if(edition > -1) {
-            try {
-                Connection con = getDBConnection();
-                Statement stmt = null;
-                String query = "INSERT INTO `card` (`CardName`, `CardColor`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES ('"
-                        + card.name + "','" + card.color + "','" + card.manaCost + "','" + String.join("-", card.types) + "'," + card.attackValue + "," + card.defenceValue + ",'" + card.ruleText
-                        + "','" + card.storyText + "','" + card.artistName + "'," + getEditionNumber(card.edition) + ");";
-                stmt = con.createStatement();
-                stmt.execute(query);
-            } catch (SQLException e) {
-                System.out.print(e);
-            }
+    public static void saveCard(Card card) throws Exception {
+
+        if (!DatabaseHandler.isCardNameUnique(card.name)) {
+            throw new Exception("Cardname already exists");
+        } else {
+            Connection con = getDBConnection();
+            Statement stmt = null;
+            String query = "INSERT INTO `card` (`CardName`, `CardColor`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES ('"
+                    + card.name.trim() + "','" + card.color + "','" + card.manaCost + "','" + String.join("-", card.types) + "'," + card.attackValue + "," + card.defenceValue + ",'" + card.ruleText
+                    + "','" + card.storyText + "','" + card.artistName + "'," + getEditionNumber(card.edition) + ");";
+            stmt = con.createStatement();
+            stmt.execute(query);
         }
-        else{
-            System.out.println("Couldn't find edition");
+    }
+
+    public static void updateCard(Card card) throws Exception {
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "UPDATE `card` SET " +
+                "CardName = '" +
+                card.name.trim() +
+                "', CardMana = '" +
+                card.manaCost +
+                "', CardColor = '" +
+                card.color +
+                "', CardTyp = '" +
+                String.join("-", card.types) +
+                "', CardAttack = '" +
+                card.attackValue +
+                "', CardDefense = '" +
+                card.defenceValue +
+                "', CardText = '" +
+                card.ruleText +
+                "', CardFlavorText = '" +
+                card.storyText +
+                "', CardArtist = '" +
+                card.artistName +
+                "', EdiID = '" +
+                getEditionNumber(card.edition) +
+                "' WHERE CardID = '" + card.id + "';";
+        stmt = con.createStatement();
+        stmt.execute(query);
+    }
+
+    public static void deleteCard(int nr) throws SQLException {
+
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "DELETE FROM `card` WHERE CardID = " + nr;
+        stmt = con.createStatement();
+        stmt.execute(query);
+    }
+
+    public static boolean isCardNameUnique(String name) throws SQLException {
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "SELECT * FROM `card` where CardName LIKE '" + name.trim() + "' ;";
+        stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        if (rs.next()) {
+            return false;
         }
+        return true;
+    }
+
+    public static Card getCardByCardName(String name) throws Exception {
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "SELECT * FROM card WHERE CardName = '" + name + "';";
+        stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        if (!rs.next()) {
+            throw new Exception("Card doesn't exist");
+        }
+        return resultSetToCard(rs);
     }
 
     public static Card getCard(int cardNr) throws SQLException {
-        try {
-            Connection con = getDBConnection();
-            Statement stmt = null;
-            String query = "SELECT * FROM card WHERE CardID = " + cardNr + ";";
-            stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            rs.next();
-                Card card = new Card(
-                        rs.getString("CardName"),
-                        (String[]) Arrays.asList(rs.getString("CardTyp").split("\\s*-\\s*")).toArray(),
-                        getCardEdition(cardNr),
-                        rs.getString("CardColor"),
-                        rs.getString("CardMana"),
-                        rs.getString("CardText"),
-                        rs.getString("CardFlavorText"),
-                        rs.getString("CardArtist"),
-                        rs.getByte("CardAttack"),
-                        rs.getByte("CardDefense")
-                );
-                card.id = cardNr;
-                return card;
-        } catch (SQLException e ) {
-            System.out.print(e);
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "SELECT * FROM+" +
+                " card WHERE CardID = " + cardNr + ";";
+        stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        Card card = resultSetToCard(rs);
+        card.id = cardNr;
+        return card;
+    };
+
+    public static List<String> get5SuggestedCardNames(String text) throws Exception {
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "SELECT * FROM card WHERE CardName LIKE '" + text +"%' ORDER BY CardName;";
+        stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        List<String> suggestions = new ArrayList<>();
+        while (rs.next()) {
+            suggestions.add(rs.getString("CardName"));
         }
-        return null;
+        return suggestions;
     }
 
-    public static String getCardEdition(int editionID) {
-        try {
-            Connection con = getDBConnection();
-            Statement stmt = null;
-            String query = "SELECT EdiName FROM `edition` WHERE EdiID = " + editionID + ";";
-            stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            rs.next();
-            return rs.getString("EdiName");
-        } catch (SQLException e ) {
-            System.out.print(e);
-        }
-
-        return "";
+    private static Card resultSetToCard(ResultSet rs) throws SQLException {
+        return new Card(
+                rs.getInt("CardID"),
+                rs.getString("CardName"),
+                (String[]) Arrays.asList(rs.getString("CardTyp").split("\\s*-\\s*")).toArray(),
+                getCardEdition(rs.getInt("CardID")),
+                rs.getString("CardColor"),
+                rs.getString("CardMana"),
+                rs.getString("CardText"),
+                rs.getString("CardFlavorText"),
+                rs.getString("CardArtist"),
+                rs.getByte("CardAttack"),
+                rs.getByte("CardDefense"));
     }
 
-    public static int getEditionNumber(String edition) {
-        try {
-            Connection con = getDBConnection();
-            Statement stmt = null;
-            String query = "SELECT EdiID FROM `edition` WHERE EdiName LIKE '" + edition + "';";
-            stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            rs.next();
+    public static String getCardEdition(int editionID) throws SQLException {
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "SELECT EdiName FROM `edition` WHERE EdiID = " + editionID + ";";
+        stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        return rs.getString("EdiName");
+    }
+
+    public static int getEditionNumber(String edition) throws SQLException {
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "SELECT EdiID FROM `edition` WHERE EdiName LIKE '" + edition + "';";
+        stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        if (rs.next()) {
             return rs.getInt("EdiID");
-        } catch (SQLException e) {
-            System.out.print(e);
         }
-        return -1;
+        return 1;
     }
 
     private static Connection getDBConnection() {
@@ -152,7 +213,7 @@ public class DatabaseHandler {
         try {
 
             dbConnection = DriverManager.getConnection(
-                    DB_URL, DB_USER,DB_PASS);
+                    DB_URL, DB_USER, DB_PASS);
             return dbConnection;
 
         } catch (SQLException e) {
