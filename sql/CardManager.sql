@@ -23,9 +23,27 @@ CREATE TABLE `edition` (
 --
 
 INSERT INTO `edition` (`EdiID`, `EdiName`) VALUES
-(1, 'Zendikar'),
-(2, 'Innistrad'),
-(3, 'Kaladesh');
+(1, 'Unknown'),
+(2, 'ISD'),
+(3, 'DKA'),
+(4, 'AVR'),
+(5, 'RTR'),
+(6, 'GTC'),
+(7, 'DGM'),
+(8, 'THS'),
+(9, 'BNG'),
+(10, 'JOU'),
+(11, 'KTK'),
+(12, 'FRF'),
+(13, 'DTK'),
+(14, 'BFZ'),
+(15, 'OGW'),
+(16, 'SOI'),
+(17, 'EMN'),
+(18, 'KLD'),
+(19, 'AER'),
+(20, 'AKH'),
+(21, 'HOU');
 
 -- --------------------------------------------------------
 
@@ -63,8 +81,8 @@ CREATE TABLE `card` (
 -- Daten für Tabelle `card`
 --
 
-INSERT INTO `card` (`CardID`, `CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES
-(1, '', 'Glücksrad', '2R', 'Hexerei', NULL, NULL, 'Alle Spieler müssen ihr Blatt abwerfen und sieben neue Karten ziehen', '', NULL, 'Daniel Gelon', 1);
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES
+('', 'Glücksrad', '2R', 'Hexerei', NULL, NULL, 'Alle Spieler müssen ihr Blatt abwerfen und sieben neue Karten ziehen', '', 'Daniel Gelon', 1);
 
 --
 -- Tabellenstruktur für Tabelle `deck`
