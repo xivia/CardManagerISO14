@@ -16,8 +16,10 @@ public class Card {
     public Byte attackValue;
     public Byte defenceValue;
 
-    public Card( String name, String[] types,  String edition, String color, String manaCost,
+    public Card( int id, String name, String[] types,  String edition, String color, String manaCost,
                  String ruleText, String storyText, String artistName, Byte attackValue, Byte defenceValue){
+
+        this.id = id;
         this.name = name;
         this.types = types;
         this.edition = edition;
@@ -29,6 +31,14 @@ public class Card {
         this.attackValue = attackValue;
         this.defenceValue = defenceValue;
     }
+
+
+
+    public Card( String name, String[] types,  String edition, String color, String manaCost,
+                 String ruleText, String storyText, String artistName, Byte attackValue, Byte defenceValue){
+        this(-1,name,types,edition,color,manaCost,ruleText,storyText,artistName,attackValue,defenceValue);
+    }
+
 
     public void printCardInfo(){
         String concTypes = "";
