@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DatabaseHandler {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/cardmanager";
+    static final String DB_URL = "jdbc:mysql://localhost/cardmanager?useSSL=false";
 
     static final String DB_USER = "root";
     static final String DB_PASS = "root";
