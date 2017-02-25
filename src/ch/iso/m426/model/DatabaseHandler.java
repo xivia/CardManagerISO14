@@ -109,6 +109,15 @@ public class DatabaseHandler {
         stmt.execute(query);
     }
 
+    public static void deleteDeck(String name) throws SQLException {
+
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "DELETE FROM deck WHERE DeckName = '" + name + "';";
+        stmt = con.createStatement();
+        stmt.execute(query);
+    }
+
     private static boolean isCardNameUnique(String name) throws SQLException {
         Connection con = getDBConnection();
         Statement stmt = null;

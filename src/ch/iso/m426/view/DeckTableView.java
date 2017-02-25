@@ -26,8 +26,4 @@ public class DeckTableView extends TableView<Deck> {
         this.setItems(DeckObservableList.get());
         DeckObservableList.setTable(this);
     }
-
-    private void deleteDeck() {
-
-    }
 }

@@ -2,6 +2,7 @@ package ch.iso.m426.controller;
 
 import ch.iso.m426.model.DatabaseHandler;
 import ch.iso.m426.view.DeckTableView;
+import ch.iso.m426.view.DeleteButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -18,12 +19,7 @@ public class DeckManagementEventHandler implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
 
-        DeckTableView deckTableView = new DeckTableView();
-        Button button = new Button();
-        button.setText("Löschen");
-        //button.setOnAction(DatabaseHandler.deleteDeck(deckTableView.getSelected Item));
-
-        this.cardManagerBorderPane.setCenter(deckTableView);
-        this.cardManagerBorderPane.setBottom(button);
+        this.cardManagerBorderPane.setCenter(new DeckTableView());
+        this.cardManagerBorderPane.setBottom(new DeleteButton());
     }
 }
