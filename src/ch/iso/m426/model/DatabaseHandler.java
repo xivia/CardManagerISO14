@@ -44,15 +44,15 @@ public class DatabaseHandler {
         }
     }
 
-    public static void saveDeck(Deck deck) {
-        try {
+    public static void saveDeck(Deck deck) throws Exception {
+        if (!DatabaseHandler.isDeckNameUnique(deck.getName())){
+            throw new Exception("Deck already exists");
+        } else {
             Connection con = getDBConnection();
             Statement stmt = null;
-            String query = "INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES (" + deck.getName() + ", " + deck.getFormat() + ");";
+            String query = "INSERT INTO deck (DeckName, DeckFormat) VALUES ('" + deck.getName() + "' , '" + deck.getFormat() + "');";
             stmt = con.createStatement();
             stmt.execute(query);
-        } catch (SQLException e){
-            System.out.print(e);
         }
     }
 
@@ -109,7 +109,7 @@ public class DatabaseHandler {
         stmt.execute(query);
     }
 
-    public static boolean isCardNameUnique(String name) throws SQLException {
+    private static boolean isCardNameUnique(String name) throws SQLException {
         Connection con = getDBConnection();
         Statement stmt = null;
         String query = "SELECT * FROM `card` where CardName LIKE '" + name.trim() + "' ;";
@@ -131,6 +131,18 @@ public class DatabaseHandler {
             throw new Exception("Card doesn't exist");
         }
         return resultSetToCard(rs);
+    }
+
+    public static boolean isDeckNameUnique(String name) throws SQLException {
+        Connection con = getDBConnection();
+        Statement stmt = null;
+        String query = "SELECT * FROM deck where DeckName LIKE '" + name.trim() + "' ;";
+        stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        if (rs.next()) {
+            return false;
+        }
+        return true;
     }
 
     public static Card getCard(int cardNr) throws SQLException {
