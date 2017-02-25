@@ -21,10 +21,13 @@ public class DeckTableView extends TableView<Deck> {
         formatCol.setPrefWidth(200);
 
         DatabaseHandler.getAllDecks();
-        System.out.println(DeckObservableList.get());
 
-        /*this.getColumns().addAll(nameCol, formatCol);
+        this.getColumns().addAll(nameCol, formatCol);
         this.setItems(DeckObservableList.get());
-        DeckObservableList.setTable(this);*/
+        DeckObservableList.setTable(this);
+    }
+
+    private void deleteDeck() {
+
     }
 }
