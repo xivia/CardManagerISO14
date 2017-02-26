@@ -15,11 +15,11 @@ import javafx.scene.text.Text;
 import java.lang.invoke.LambdaMetafactory;
 
 public class CreateDeckView extends GridPane{
-    private Label lblName = new Label("Deck Name:");
+    private Label lblName = new Label(Constants.CREATE_DECK_LABEL_NAME);
     private TextField tfName = new TextField();
-    private Label lblFormat = new Label("Deck Format:");
+    private Label lblFormat = new Label(Constants.CREATE_DECK_LABEL_FORMAT);
     private ComboBox cmbFormat = new ComboBox(FXCollections.observableArrayList(Deck.FORMAT.values()));
-    private Button btnAddDeck = new Button("Add Deck");
+    private Button btnAddDeck = new Button(Constants.CREATE_DECK_BUTTON);
     private Text statusText = new Text();
 
     public CreateDeckView(){
@@ -61,10 +61,10 @@ public class CreateDeckView extends GridPane{
         Deck deck = new Deck(name, format);
         try {
             DatabaseHandler.saveDeck(deck);
-            statusText.setText("Deck erstellt");
+            statusText.setText(Constants.CREATE_DECK_STATUS_CREATED);
         } catch (Exception e) {
             System.out.print(e);
-            statusText.setText("Deck gibt es schon");
+            statusText.setText(Constants.CREATE_DECK_STATUS_ALREADY_EXIST);
         }
     }
 }
