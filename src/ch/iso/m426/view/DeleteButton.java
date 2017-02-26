@@ -9,7 +9,7 @@ public class DeleteButton extends Button {
     public DeleteButton(){
         super();
 
-        this.setText("Löschen");
+        this.setText(Constants.DELETE_BUTTON_TEXT);
         this.setOnAction(event -> {
             try {
                 String name = DeckObservableList.getTable().getSelectionModel().getSelectedItem().getName();

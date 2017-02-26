@@ -12,11 +12,11 @@ public class DeckTableView extends TableView<Deck> {
     public DeckTableView(){
         super();
 
-        TableColumn<Deck, String> nameCol = new TableColumn<>("Name");
+        TableColumn<Deck, String> nameCol = new TableColumn<>(Constants.DECK_TABLE_VIEW_NAME);
         nameCol.setCellValueFactory(new PropertyValueFactory<Deck, String>("name"));
         nameCol.setPrefWidth(550);
 
-        TableColumn<Deck, String> formatCol = new TableColumn<Deck, String>("Format");
+        TableColumn<Deck, String> formatCol = new TableColumn<Deck, String>(Constants.DECK_TABLE_VIEW_FORMAT);
         formatCol.setCellValueFactory(new PropertyValueFactory<Deck, String>("format"));
         formatCol.setPrefWidth(200);
 
