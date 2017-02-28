@@ -4,18 +4,25 @@ import ch.iso.m426.model.DatabaseHandler;
 import ch.iso.m426.model.Card;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
+
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -47,24 +54,26 @@ public class CreateCardDialog extends GridPane {
     Button btnAddCard = new Button("Add");
     Button btnEditCard = new Button("Edit");
     Button btnDeleteCard = new Button("Delete");
-    ComboBox chFindCard = new ComboBox();
     Button btnloadCardIfExist = new Button("Load Card");
+    Stage searchCardStage = new Stage();
+    CardTableView cardTableView = new CardTableView();
+    TextField tfSearchCard = new TextField();
 
     public CreateCardDialog() {
         setAlignment(Pos.CENTER);
         setHgap(10);
         setVgap(10);
         setPadding(new Insets(25, 25, 25, 25));
-        ColumnConstraints col = new ColumnConstraints();
-        col.setPercentWidth(100f / 8f);
+        ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setPercentWidth(100f / 8f);
         for(int i = 0; i < 8;i++) {
-            getColumnConstraints().add(col);
+            getColumnConstraints().add(columnConstraints);
         }
 
-        RowConstraints row = new RowConstraints();
-        row.setPercentHeight(100f / 15f);
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setPercentHeight(100f / 15f);
         for(int i = 0;i < 10;i++){
-            getRowConstraints().add(row);
+            getRowConstraints().add(rowConstraints);
         }
 
 
@@ -112,19 +121,13 @@ public class CreateCardDialog extends GridPane {
         btnDeleteCard.setPrefWidth(100);
         add(btnDeleteCard,2,8,1,1);
 
-        chFindCard.setEditable(true);
-        //Additional Feature: autocomplete card search
-        //TODO Ask Born why combobox is not editable after selecting item.
-        /*chFindCard.getEditor().textProperty().addListener(new ChangeListener<String>() {
+        btnloadCardIfExist.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                setTop5SuggestedNames();
+            public void handle(ActionEvent e) {
+                searchCardStage.show();
             }
-        });*/
-        chFindCard.setOnAction(event -> setTop5SuggestedNames());
-        add(chFindCard,4,8,2,1);
 
-        btnloadCardIfExist.setOnAction(event -> loadCard());
+        });
         btnloadCardIfExist.setPrefHeight(40);
         btnloadCardIfExist.setPrefWidth(100);
         add(btnloadCardIfExist,6,8,1,1);
@@ -133,6 +136,45 @@ public class CreateCardDialog extends GridPane {
 
         btnDeleteCard.setVisible(false);
         btnEditCard.setVisible(false);
+
+        searchCardStage = new Stage();
+        BorderPane root = new BorderPane();
+        root.setTop(tfSearchCard);
+
+        cardTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Card>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Card> observable, Card oldValue, Card newValue) {
+                // Your action here
+                if(newValue!= null){
+                    loadCard(newValue);
+                }
+            }
+        });
+
+        root.setCenter(cardTableView);
+        searchCardStage.setTitle("SearchCard");
+
+        Scene scene = new Scene(root,800,800);
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+        searchCardStage.setScene(scene);
+
+        changeCardTableViewValues();
+        tfSearchCard.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+                changeCardTableViewValues();
+            }
+        });
+    }
+
+    private void changeCardTableViewValues(){
+        try {
+            cardTableView.insertCards(DatabaseHandler.getSuggestedCards(tfSearchCard.getText()));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public String[] getTypes() {
@@ -148,6 +190,7 @@ public class CreateCardDialog extends GridPane {
             DatabaseHandler.saveCard(new Card(tfName.getText().trim(), getTypes(), tfEdition.getText(), tfColor.getText(),
                     tfManaCost.getText(), taRuleText.getText(), taStoryText.getText(), "artistName",
                     (byte) (int) tfAttack.getValue(), (byte) (int) tfDefence.getValue()));
+            changeCardTableViewValues();
         }
         catch(Exception e){
             System.out.println(e);
@@ -161,6 +204,7 @@ public class CreateCardDialog extends GridPane {
                     tfManaCost.getText(), taRuleText.getText(), taStoryText.getText(), "artistName",
                     (byte) (int) tfAttack.getValue(), (byte) (int) tfDefence.getValue()));
             lblCurrentCard.setText(tfName.getText());
+            changeCardTableViewValues();
         }
         catch(Exception e){
             System.out.println(e);
@@ -174,6 +218,7 @@ public class CreateCardDialog extends GridPane {
             lblCurrentCard.setText("New Card");
             btnDeleteCard.setVisible(false);
             btnEditCard.setVisible(false);
+            changeCardTableViewValues();
         }
         catch(Exception e){
             System.out.println(e);
@@ -181,42 +226,26 @@ public class CreateCardDialog extends GridPane {
         }
     }
 
-    private void loadCard(){
-        try {
-            fillValuesIntoField(DatabaseHandler.getCardByCardName(chFindCard.getEditor().getText()));
-            lblCurrentCard.setText(chFindCard.getEditor().getText());
-            chFindCard.getEditor().clear();
-            btnDeleteCard.setVisible(true);
-            btnEditCard.setVisible(true);
-        }
-        catch(Exception e){
-            System.out.println(e);
-            lblErrorBar.setText(e.getMessage());
-        }
-    }
-
-    private void setTop5SuggestedNames(){
-        try {
-            chFindCard.setItems(FXCollections.observableList(DatabaseHandler.get5SuggestedCardNames(chFindCard.getEditor().getText())));
-        }
-        catch(Exception e){
-            System.out.println(e);
-            lblErrorBar.setText(e.getMessage());
-        }
-    }
-
-    private void fillValuesIntoField(Card card){
+    private void loadCard(Card card){
+        lblCurrentCard.setText(card.name);
         tfName.setText(card.name);
         tfEdition.setText(card.edition);
         tfColor.setText(card.color);
         tfManaCost.setText(card.manaCost);
         tfAttack.getValueFactory().setValue((int)card.attackValue);
         tfDefence.getValueFactory().setValue((int)card.defenceValue);
-        for(int i = 0; i < 6 && i < card.types.length; i++){
-            tfTypes[i].setText(card.types[i]);
+        for(int i = 0; i < 6 ; i++){
+            if(i < card.types.length){
+                tfTypes[i].setText(card.types[i]);
+            }else{
+                tfTypes[i].setText("");
+            }
         }
         taRuleText.setText(card.ruleText);
         taStoryText.setText(card.storyText);
         currentCardNr = card.id;
+        btnDeleteCard.setVisible(true);
+        btnEditCard.setVisible(true);
     }
+
 }

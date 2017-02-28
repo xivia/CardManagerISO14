@@ -2,6 +2,8 @@ package ch.iso.m426.view;
 
 import ch.iso.m426.model.Card;
 import ch.iso.m426.model.CardObservableList;
+import ch.iso.m426.model.DatabaseHandler;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -10,11 +12,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Serafima on 15.01.2017.
  */
 public class CardTableView<T> extends TableView<Card> {
-    public CardTableView(){
+    public CardTableView() {
         super();
 
         TableColumn<Card, String> nameCol = new TableColumn<Card, String>("Name");
@@ -49,17 +54,11 @@ public class CardTableView<T> extends TableView<Card> {
         defCol.setCellValueFactory(new PropertyValueFactory<Card, String>("defenceValue"));
         defCol.setPrefWidth(120);
 
-
-        // some static data in the list
-        String a[] = {"type1", "type2"};
-        Byte b = 1;
-        //CardObservableList.get().add(new Card("Test", a, a, "edition 1", "2", "rule", "text", b, b));
-        //CardObservableList.get().add(new Card("Test", a, a, "edition 2", "mana cost", "rule", "text", b, b));
-
         this.getColumns().addAll(nameCol, typeCol, editionCol, manaCol, ruleCol, storyCol, attackCol, defCol);
-        this.setItems(CardObservableList.get());
-        CardObservableList.setTable(this);
-
     }
 
+    public void insertCards(List<Card> entries) {
+
+        this.setItems(FXCollections.observableList(entries));
+    }
 }
