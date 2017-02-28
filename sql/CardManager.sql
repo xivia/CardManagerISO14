@@ -84,6 +84,14 @@ CREATE TABLE `card` (
 INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES
 ('', 'Glücksrad', '2R', 'Hexerei', NULL, NULL, 'Alle Spieler müssen ihr Blatt abwerfen und sieben neue Karten ziehen', '', 'Daniel Gelon', 1);
 
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES
+('Gold', 'Storm Crow Storm', 'URG', 'Tribal-Instant', NULL, NULL, 'Alle Spieler müssen ihr Blatt abwerfen und sieben neue Karten ziehen', '', 'David Wyss', 3);
+
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUE
+('Gold', 'Gonti+', 'UBG', 'Creature-Aetheborn-Rogue', 2, 4, 'Deathtouch\nYou may play cards from your opponents Deck for free', 'Balanced', 'David Wyss', 2);
+
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUE
+('Blue', 'Timewalk', '1U', 'Instant-Concede-x-x-x-x', 0, 0, 'Gain an extra turn', 'Why Not', 'Bradly Nielson', 18);
 --
 -- Tabellenstruktur für Tabelle `deck`
 --
