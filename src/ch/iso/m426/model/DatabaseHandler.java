@@ -14,7 +14,28 @@ public class DatabaseHandler {
     static final String DB_USER = "root";
     static final String DB_PASS = "root";
 
+    static Connection dbConnection;
+
     public DatabaseHandler() {}
+
+    private static Connection getDBConnection() throws SQLException {
+        if (dbConnection != null && !dbConnection.isClosed()) {
+            return dbConnection;
+        }
+        dbConnection = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            dbConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+            return dbConnection;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return dbConnection;
+    }
 
     public static void getAllDecks(){
         try {
@@ -64,8 +85,9 @@ public class DatabaseHandler {
             Connection con = getDBConnection();
             Statement stmt = null;
             String query = "INSERT INTO `card` (`CardName`, `CardColor`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES ('"
-                    + card.name.trim() + "','" + card.color + "','" + card.manaCost + "','" + String.join("-", card.types) + "'," + card.attackValue + "," + card.defenceValue + ",'" + card.ruleText
-                    + "','" + card.storyText + "','" + card.artistName + "'," + getEditionNumber(card.edition) + ");";
+                    + card.name.trim().replace("'", "") + "','" + card.color.replace("'", "") + "','" + card.manaCost.replace("'", "")
+                    + "','" + String.join("-", card.types) + "'," + card.attackValue + "," + card.defenceValue + ",'" + card.ruleText.replace("'", "")
+                    + "','" + card.storyText.replace("'", "") + "','" + card.artistName.replace("'", "") + "'," + getEditionNumber(card.edition.replace("'", "")) + ");";
             stmt = con.createStatement();
             stmt.execute(query);
         }
@@ -154,7 +176,7 @@ public class DatabaseHandler {
         return true;
     }
 
-    public static Card getCard(int cardNr) throws SQLException {
+    public static Card getCardByID(int cardNr) throws SQLException {
         Connection con = getDBConnection();
         Statement stmt = null;
         String query = "SELECT * FROM+" +
@@ -167,15 +189,15 @@ public class DatabaseHandler {
         return card;
     };
 
-    public static List<String> get5SuggestedCardNames(String text) throws Exception {
+    public static List<Card> getSuggestedCards(String text) throws Exception {
         Connection con = getDBConnection();
         Statement stmt = null;
         String query = "SELECT * FROM card WHERE CardName LIKE '" + text +"%' ORDER BY CardName;";
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
-        List<String> suggestions = new ArrayList<>();
+        List<Card> suggestions = new ArrayList<>();
         while (rs.next()) {
-            suggestions.add(rs.getString("CardName"));
+            suggestions.add(resultSetToCard(rs));
         }
         return suggestions;
     }
@@ -185,7 +207,7 @@ public class DatabaseHandler {
                 rs.getInt("CardID"),
                 rs.getString("CardName"),
                 (String[]) Arrays.asList(rs.getString("CardTyp").split("\\s*-\\s*")).toArray(),
-                getCardEdition(rs.getInt("CardID")),
+                getCardEdition(rs.getInt("EdiID")),
                 rs.getString("CardColor"),
                 rs.getString("CardMana"),
                 rs.getString("CardText"),
@@ -216,35 +238,4 @@ public class DatabaseHandler {
         }
         return 1;
     }
-
-    private static Connection getDBConnection() {
-
-        Connection dbConnection = null;
-
-        try {
-
-            Class.forName(JDBC_DRIVER);
-
-        } catch (ClassNotFoundException e) {
-
-            System.out.println(e.getMessage());
-
-        }
-
-        try {
-
-            dbConnection = DriverManager.getConnection(
-                    DB_URL, DB_USER, DB_PASS);
-            return dbConnection;
-
-        } catch (SQLException e) {
-
-            System.out.println(e.getMessage());
-
-        }
-
-        return dbConnection;
-
-    }
-
 }
