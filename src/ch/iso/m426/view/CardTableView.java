@@ -24,35 +24,35 @@ public class CardTableView<T> extends TableView<Card> {
 
         TableColumn<Card, String> nameCol = new TableColumn<Card, String>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<Card, String>("name"));
-        nameCol.setPrefWidth(120);
+        nameCol.setMinWidth(50);
 
         TableColumn<Card, String> typeCol = new TableColumn<Card, String>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<Card, String>("types"));
-        typeCol.setPrefWidth(120);
+        typeCol.setMinWidth(50);
 
         TableColumn<Card, String> editionCol = new TableColumn<Card, String>("Edition");
         editionCol.setCellValueFactory(new PropertyValueFactory<Card, String>("edition"));
-        editionCol.setPrefWidth(120);
+        editionCol.setMinWidth(40);
 
         TableColumn<Card, String> manaCol = new TableColumn<Card, String>("Mana");
         manaCol.setCellValueFactory(new PropertyValueFactory<Card, String>("manaCost"));
-        manaCol.setPrefWidth(120);
+        manaCol.setMinWidth(30);
 
         TableColumn<Card, String> ruleCol = new TableColumn<Card, String>("Rule");
         ruleCol.setCellValueFactory(new PropertyValueFactory<Card, String>("ruleText"));
-        ruleCol.setPrefWidth(120);
+        ruleCol.setMinWidth(80);
 
         TableColumn<Card, String> storyCol = new TableColumn<Card, String>("Story");
         storyCol.setCellValueFactory(new PropertyValueFactory<Card, String>("storyText"));
-        storyCol.setPrefWidth(120);
+        storyCol.setMinWidth(60);
 
-        TableColumn<Card, String> attackCol = new TableColumn<Card, String>("Attack");
+        TableColumn<Card, String> attackCol = new TableColumn<Card, String>("Atk");
         attackCol.setCellValueFactory(new PropertyValueFactory<Card, String>("attackValue"));
-        attackCol.setPrefWidth(120);
+        attackCol.setMinWidth(30);
 
-        TableColumn<Card, String> defCol = new TableColumn<Card, String>("Defence");
+        TableColumn<Card, String> defCol = new TableColumn<Card, String>("Def");
         defCol.setCellValueFactory(new PropertyValueFactory<Card, String>("defenceValue"));
-        defCol.setPrefWidth(120);
+        defCol.setMinWidth(30);
 
         this.getColumns().addAll(nameCol, typeCol, editionCol, manaCol, ruleCol, storyCol, attackCol, defCol);
     }
