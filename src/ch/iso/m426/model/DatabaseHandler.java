@@ -2,9 +2,11 @@ package ch.iso.m426.model;
 
 import javafx.collections.ObservableList;
 
+import java.io.Console;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DatabaseHandler {
@@ -12,7 +14,7 @@ public class DatabaseHandler {
     static final String DB_URL = "jdbc:mysql://localhost/cardmanager?useSSL=false";
 
     static final String DB_USER = "root";
-    static final String DB_PASS = "root";
+    static final String DB_PASS = "";
 
     static Connection dbConnection;
 
@@ -71,7 +73,7 @@ public class DatabaseHandler {
         } else {
             Connection con = getDBConnection();
             Statement stmt = null;
-            String query = "INSERT INTO deck (DeckName, DeckFormat) VALUES ('" + deck.getName() + "' , '" + deck.getFormat() + "');";
+            String query = "INSERT INTO deck (DeckName, DeckFormat) VALUES ('" + deck.getName().replace("'","") + "' , '" + deck.getFormat() + "');";
             stmt = con.createStatement();
             stmt.execute(query);
         }
@@ -86,7 +88,7 @@ public class DatabaseHandler {
             Statement stmt = null;
             String query = "INSERT INTO `card` (`CardName`, `CardColor`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES ('"
                     + card.name.trim().replace("'", "") + "','" + card.color.replace("'", "") + "','" + card.manaCost.replace("'", "")
-                    + "','" + String.join("-", card.types) + "'," + card.attackValue + "," + card.defenceValue + ",'" + card.ruleText.replace("'", "")
+                    + "','" + validateCreatureTypes(card.types) + "'," + card.attackValue + "," + card.defenceValue + ",'" + card.ruleText.replace("'", "")
                     + "','" + card.storyText.replace("'", "") + "','" + card.artistName.replace("'", "") + "'," + getEditionNumber(card.edition.replace("'", "")) + ");";
             stmt = con.createStatement();
             stmt.execute(query);
@@ -98,25 +100,25 @@ public class DatabaseHandler {
         Statement stmt = null;
         String query = "UPDATE `card` SET " +
                 "CardName = '" +
-                card.name.trim() +
+                card.name.trim().replace("'","") +
                 "', CardMana = '" +
-                card.manaCost +
+                card.manaCost.replace("'","") +
                 "', CardColor = '" +
-                card.color +
+                card.color.replace("'","") +
                 "', CardTyp = '" +
-                String.join("-", card.types) +
+                validateCreatureTypes(card.types) +
                 "', CardAttack = '" +
                 card.attackValue +
                 "', CardDefense = '" +
                 card.defenceValue +
                 "', CardText = '" +
-                card.ruleText +
+                card.ruleText.replace("'","") +
                 "', CardFlavorText = '" +
-                card.storyText +
+                card.storyText.replace("'","") +
                 "', CardArtist = '" +
-                card.artistName +
+                card.artistName.replace("'","") +
                 "', EdiID = '" +
-                getEditionNumber(card.edition) +
+                getEditionNumber(card.edition.replace("'","")) +
                 "' WHERE CardID = '" + card.id + "';";
         stmt = con.createStatement();
         stmt.execute(query);
@@ -135,7 +137,7 @@ public class DatabaseHandler {
 
         Connection con = getDBConnection();
         Statement stmt = null;
-        String query = "DELETE FROM deck WHERE DeckName = '" + name + "';";
+        String query = "DELETE FROM deck WHERE DeckName = '" + name.replace("'","") + "';";
         stmt = con.createStatement();
         stmt.execute(query);
     }
@@ -143,7 +145,7 @@ public class DatabaseHandler {
     private static boolean isCardNameUnique(String name) throws SQLException {
         Connection con = getDBConnection();
         Statement stmt = null;
-        String query = "SELECT * FROM `card` where CardName LIKE '" + name.trim() + "' ;";
+        String query = "SELECT * FROM `card` where CardName LIKE '" + name.trim().replace("'","") + "' ;";
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         if (rs.next()) {
@@ -155,7 +157,7 @@ public class DatabaseHandler {
     public static Card getCardByCardName(String name) throws Exception {
         Connection con = getDBConnection();
         Statement stmt = null;
-        String query = "SELECT * FROM card WHERE CardName = '" + name + "';";
+        String query = "SELECT * FROM card WHERE CardName = '" + name.replace(",","") + "';";
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         if (!rs.next()) {
@@ -167,7 +169,7 @@ public class DatabaseHandler {
     public static boolean isDeckNameUnique(String name) throws SQLException {
         Connection con = getDBConnection();
         Statement stmt = null;
-        String query = "SELECT * FROM deck where DeckName LIKE '" + name.trim() + "' ;";
+        String query = "SELECT * FROM deck where DeckName LIKE '" + name.trim().replace("'","") + "' ;";
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         if (rs.next()) {
@@ -192,7 +194,7 @@ public class DatabaseHandler {
     public static List<Card> getSuggestedCards(String text) throws Exception {
         Connection con = getDBConnection();
         Statement stmt = null;
-        String query = "SELECT * FROM card WHERE CardName LIKE '" + text +"%' ORDER BY CardName;";
+        String query = "SELECT * FROM card WHERE CardName LIKE '" + text.replace("'","") +"%' ORDER BY CardName;";
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         List<Card> suggestions = new ArrayList<>();
@@ -230,12 +232,19 @@ public class DatabaseHandler {
     public static int getEditionNumber(String edition) throws SQLException {
         Connection con = getDBConnection();
         Statement stmt = null;
-        String query = "SELECT EdiID FROM `edition` WHERE EdiName LIKE '" + edition + "';";
+        String query = "SELECT EdiID FROM `edition` WHERE EdiName LIKE '" + edition.replace("'","") + "';";
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         if (rs.next()) {
             return rs.getInt("EdiID");
         }
         return 1;
+    }
+
+    public static String validateCreatureTypes(String[] types){
+        for(int i = 0; i < types.length; i++){
+            types[i] = types[i].replace("-","").replace("'","");
+        }
+        return String.join("-",types);
     }
 }
