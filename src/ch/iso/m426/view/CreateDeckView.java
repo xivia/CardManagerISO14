@@ -31,6 +31,8 @@ public class CreateDeckView extends GridPane{
         add(lblName, 0, 0);
         add(tfName, 1, 0);
         add(lblFormat, 0, 1);
+
+        cmbFormat.getSelectionModel().select(3);
         add(cmbFormat, 1, 1);
 
         btnAddDeck.setOnAction(event -> addDeck());

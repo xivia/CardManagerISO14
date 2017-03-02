@@ -14,5 +14,9 @@ public class CreateDecksEventHandler implements EventHandler<ActionEvent> {
     }
 
     @Override
-    public void handle(ActionEvent event) { this.cardManagerBorderPane.setCenter(new CreateDeckView());}
+    public void handle(ActionEvent event) {
+
+        this.cardManagerBorderPane.setCenter(new CreateDeckView());
+        this.cardManagerBorderPane.setBottom(null);
+    }
 }
