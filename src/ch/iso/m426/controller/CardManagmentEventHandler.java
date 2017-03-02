@@ -22,6 +22,8 @@ public class CardManagmentEventHandler implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent event) {
+
         this.cardManagerBorderPane.setCenter(new CardTableView<Object>());
+        this.cardManagerBorderPane.setBottom(null);
     }
 }
