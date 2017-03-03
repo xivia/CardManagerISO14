@@ -1,8 +1,6 @@
 package ch.iso.m426.view;
 
 import ch.iso.m426.controller.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -32,7 +30,7 @@ public class CardManagerMenu extends MenuBar {
 		createDecks.setOnAction(new CreateDecksEventHandler(cardManagerBorderPane));
 
 		MenuItem managerCards = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_CARDS);
-		managerCards.setOnAction(new CardManagmentEventHandler(cardManagerBorderPane));
+		managerCards.setOnAction(new CardManagementEventHandler(cardManagerBorderPane));
 		
 		MenuItem managerDeck = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_DECK);
 		managerDeck.setOnAction(new DeckManagementEventHandler(this.cardManagerBorderPane));
@@ -40,8 +38,12 @@ public class CardManagerMenu extends MenuBar {
 		MenuItem managerExit = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_EXIT);
 		managerExit.setOnAction(new ExitEventHandler());
 
+		//TODO: remove this menu element after testing
+		MenuItem c2dTest = new MenuItem("Show c2d table view (TEST)");
+		c2dTest.setOnAction(new CardToDeckManagementEventHandler(cardManagerBorderPane));
+
 		// Add Items to MenuEntrys
-		manager.getItems().addAll(createCards, createDecks, managerCards, managerDeck, managerExit);
+		manager.getItems().addAll(createCards, createDecks, managerCards, managerDeck, managerExit, c2dTest);
 
 		return manager;
 	}

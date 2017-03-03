@@ -12,18 +12,16 @@ import javafx.scene.layout.BorderPane;
 
 
 
-public class CardManagmentEventHandler implements EventHandler<ActionEvent>{
+public class CardManagementEventHandler implements EventHandler<ActionEvent>{
 
 	private final BorderPane cardManagerBorderPane;
 
-    public CardManagmentEventHandler(BorderPane cardManagerBorderPane) {
+    public CardManagementEventHandler(BorderPane cardManagerBorderPane) {
         this.cardManagerBorderPane = cardManagerBorderPane;
     }
 
     @Override
     public void handle(ActionEvent event) {
-
         this.cardManagerBorderPane.setCenter(new CardTableView<Object>());
-        this.cardManagerBorderPane.setBottom(null);
     }
 }
