@@ -20,6 +20,9 @@ public class DeckObservableList {
     }
 
     public static void setTable(TableView<Deck> table) {
+
+        DeckObservableList.get().clear();
+        DatabaseHandler.getAllDecks();
         DeckObservableList.deckTable = table;
     }
 

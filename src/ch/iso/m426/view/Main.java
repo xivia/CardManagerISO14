@@ -10,16 +10,18 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new CardViewPane();
+			BorderPane root = new BorderPane();
 			
 			// Place menu at Top
 			root.setTop(new CardManagerMenu(root));
 
 			// Set title
 			primaryStage.setTitle("Card-Manager");
+			primaryStage.setMinHeight(500);
+			primaryStage.setMinWidth(500);
 
 			Scene scene = new Scene(root,800,800);
-			
+
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			primaryStage.setScene(scene);

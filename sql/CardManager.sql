@@ -82,7 +82,28 @@ CREATE TABLE `card` (
 --
 
 INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES
-('', 'Glücksrad', '2R', 'Hexerei', NULL, NULL, 'Alle Spieler müssen ihr Blatt abwerfen und sieben neue Karten ziehen', '', 'Daniel Gelon', 1);
+('Red', 'Wheel of Fortune', '2R', 'Sorcery', NULL, NULL, 'Each player discards his or her hand\nand draws 7 cards.', '', 'Daniel Gelon', 3);
+
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUE
+('Gold', 'Catassa, Seer of Trostan', '2UBR', 'Legendary-Creature-Enchantment-Kithkin-Vampire-Wizard', 10, 5, 'Haunt\nWhenever Catassa, Seer of Trostani or a\ncreature she haunts attacks, the defending player\ndiscards his or her hand and puts all permanents\ndiscarded this way onto the battlefield.', '', 'Bradley Nielson', 6);
+
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUE
+('Black', 'Undying Evil', 'B', 'Instant', 0, 0, 'Target creature gains undying.', 'Wake me up inside', 'Some dude', 18);
+
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUE
+('Colorless', 'Sol Ring', '1', 'Artifact', 0, 0, 'Tap: Gain 2 Mana.', '', 'another dude', 5);
+
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUE
+('Colorless', 'Ornithopter', '0', 'Artifact-Creature', 0, 2, 'Flying.', 'ThopThop', 'another one', 2);
+
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUE
+('Blue', 'Timewalk', '1U', 'Instant-Concede-x-x-x-x', 0, 0, 'Gain an extra turn.', 'Why Not', 'Bradly Nielson', 18);
+
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUES
+('Gold', 'Storm Crow Storm', 'URG', 'Tribal-Instant', NULL, NULL, 'Storm\nCreate a 1/2 flying bird.', '', 'David Wyss', 3);
+
+INSERT INTO `card` (`CardColor`, `CardName`, `CardMana`, `CardTyp`, `CardAttack`, `CardDefense`, `CardText`, `CardFlavorText`, `CardArtist`, `EdiID`) VALUE
+('Gold', 'Gonti+', 'UBG', 'Creature-Aetheborn-Rogue', 2, 4, 'Deathtouch\nYou may play cards from your\nopponents Deck for free.', 'Balanced', 'David Wyss', 1);
 
 --
 -- Tabellenstruktur für Tabelle `deck`
@@ -99,8 +120,29 @@ CREATE TABLE `deck` (
 -- Daten für Tabelle `deck`
 --
 
-INSERT INTO `deck` (`DeckID`, `DeckName`, `DeckFormat`) VALUES
-(1, 'Whel Deck', 'Commander');
+INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES
+('Green Big Mana', 'Commander');
+
+INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES
+('Hardcore Gontroll', 'Standard');
+
+INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES
+('Undying Aristocrats', 'Casual');
+
+INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES
+('Wheely Deck', 'Modern');
+
+INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES
+('Black Devotion', 'Commander');
+
+INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES
+('Sneks', 'Standard');
+
+INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES
+('Storm Crow Storm', 'Casual');
+
+INSERT INTO `deck` (`DeckName`, `DeckFormat`) VALUES
+('Abusa', 'Modern');
 
 -- --------------------------------------------------------
 
@@ -144,7 +186,7 @@ CREATE TABLE `help` (
 --
 
 INSERT INTO `help` (`HelpID`, `HelpText`) VALUES
-(1, 'Dieses Programm ist selbsterklärent ;)'),
-(2, 'Dieses Programm ist selbsterklärent ;)');
+(1, 'Dieses Programm ist selbsterklärend ;)'),
+(2, 'Dieses Programm ist selbsterklärend ;)');
 
 

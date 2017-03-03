@@ -16,5 +16,9 @@ public class CreateCardsEventHandler implements EventHandler<ActionEvent>{
     }
 
     @Override
-    public void handle(ActionEvent event) { this.cardManagerBorderPane.setCenter(new CreateCardDialog());}
+    public void handle(ActionEvent event) {
+
+        this.cardManagerBorderPane.setCenter(new CreateCardDialog());
+        this.cardManagerBorderPane.setBottom(null);
+    }
 }

@@ -12,7 +12,7 @@ public class HelpObservableList {
 	    static final String DB_URL = "jdbc:mysql://localhost:3306/cardmanager";
 	
 	    static final String DB_USER = "root";
-	    static final String DB_PASS = "";	
+	    static final String DB_PASS = "";
 
 	    private final static ObservableList<Help> help = FXCollections.observableArrayList();
 
