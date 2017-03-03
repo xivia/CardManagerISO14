@@ -9,10 +9,10 @@ import javafx.collections.ObservableList;
 public class HelpObservableList {
 	
 		static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	    static final String DB_URL = "jdbc:mysql://localhost:3306/cardmanager";
+	    static final String DB_URL = "jdbc:mysql://localhost/cardmanager?useSSL=false";
 	
 	    static final String DB_USER = "root";
-	    static final String DB_PASS = "";
+	    static final String DB_PASS = "root";
 
 	    private final static ObservableList<Help> help = FXCollections.observableArrayList();
 
