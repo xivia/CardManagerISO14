@@ -17,11 +17,11 @@ public class DeckTableView extends TableView<Deck> {
 
         TableColumn<Deck, String> nameCol = new TableColumn<>(Constants.DECK_TABLE_VIEW_NAME);
         nameCol.setCellValueFactory(new PropertyValueFactory<Deck, String>("name"));
-        nameCol.setPrefWidth(550);
+        nameCol.setPrefWidth(400);
 
         TableColumn<Deck, String> formatCol = new TableColumn<Deck, String>(Constants.DECK_TABLE_VIEW_FORMAT);
         formatCol.setCellValueFactory(new PropertyValueFactory<Deck, String>("format"));
-        formatCol.setPrefWidth(200);
+        formatCol.setPrefWidth(400);
 
         TableColumn<Deck, String> factoryCol = new TableColumn<>("");
         factoryCol.setCellValueFactory(new PropertyValueFactory<Deck, String>(""));
