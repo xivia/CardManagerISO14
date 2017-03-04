@@ -186,6 +186,8 @@ public class DatabaseHandler {
         String query = "SELECT * FROM card WHERE CardName = '" + name + "';";
         stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        System.out.println("TEST ");
+        System.out.println("TEST "+rs);
         if (!rs.next()) {
             throw new Exception("Card doesn't exist");
         }
