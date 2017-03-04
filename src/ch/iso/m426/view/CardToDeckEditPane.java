@@ -20,6 +20,10 @@ import javafx.scene.text.Text;
 public class CardToDeckEditPane extends GridPane {
     TextField selCardName = new TextField();
     final ComboBox selCardBox = new ComboBox();
+    Label labelTypes = new Label();
+    Label labelMana = new Label();
+    Label labelAttack = new Label();
+    Label labelDefnce = new Label();
 
     public CardToDeckEditPane() {
 
@@ -71,26 +75,22 @@ public class CardToDeckEditPane extends GridPane {
 
         add(new Label("Selected card properties:"), 0, 1);
         add(new Label(" "), 0, 2);
-        add(new Label("Type:"), 0, 3);          add(new Label("some type"), 1, 3);
-        add(new Label("Color:"), 0, 4);         add(new Label("red"), 1, 4);
-        add(new Label("Mana cost:"), 0, 5);     add(new Label("3"), 1, 5);
-        add(new Label("Attack:"), 0, 6);        add(new Label("4"), 1, 6);
-        add(new Label("Defence:"), 0, 7);       add(new Label("2"), 1, 7);
+        add(new Label("Type:"), 0, 3);          add(labelTypes, 1, 3);
+        add(new Label("Mana cost:"), 0, 4);     add(labelMana, 1, 4);
+        add(new Label("Attack:"), 0, 5);        add(labelAttack, 1, 5);
+        add(new Label("Defence:"), 0, 6);       add(labelDefnce, 1, 6);
         //add(new Text("Here comes the card story. Lorem ipsum dolor sit amet..."), 1, 8);
         add(removeFromDeck, 1, 9);
 
-        add(new Label("Add cards:"), 0, 21);
         add(selCardBox, 0, 20);    add(addToDeck, 1, 20);
 
         //add(new Label("TODO: \n Add dropdown with all cards \n Add 'Add' button"), 0, 2);
 
-    }
+        CardObservableList.setPane(this);
+        CardObservableList.setLabelTypes(labelTypes);
+        CardObservableList.setLabelMana(labelMana);
+        CardObservableList.setLabelAttack(labelAttack);
+        CardObservableList.setLabelDefense(labelDefnce);
 
-    private void addCardToDeck() {
-        String name = this.selCardName.getText();
-        DatabaseHandler.addCardToDeckByName(name);
-        CardObservableList.get().clear();
-        DatabaseHandler.getCardsToDeck();
     }
-
 }

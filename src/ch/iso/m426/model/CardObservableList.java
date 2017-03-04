@@ -2,8 +2,10 @@ package ch.iso.m426.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
 
 /**
  * Created by Serafima on 15.01.2017.
@@ -19,6 +21,12 @@ public class CardObservableList {
     public static String selectedCardMana = null;
     public static Byte selectedCardAttack = null;
     public static Byte selectedCardDefense = null;
+    private static GridPane pane = null;
+    private static Label labelTypes = null;
+    private static Label labelColor= null;
+    private static Label labelMana = null;
+    private static Label labelAttack = null;
+    private static Label labelDefense = null;
 
     public static ObservableList<Card> get() {
         return data;
@@ -86,5 +94,61 @@ public class CardObservableList {
 
     public static void setSelectedCardDefense(Byte selectedCardDefense) {
         CardObservableList.selectedCardDefense = selectedCardDefense;
+    }
+
+    public static GridPane getPane() {
+        return pane;
+    }
+
+    public static void setPane(GridPane pane) {
+        CardObservableList.pane = pane;
+    }
+
+    public static Label getLabelTypes() {
+        return labelTypes;
+    }
+
+    public static void setLabelTypes(Label labelTypes) {
+        CardObservableList.labelTypes = labelTypes;
+    }
+
+    public static TextArea getField() {
+        return field;
+    }
+
+    public static void setField(TextArea field) {
+        CardObservableList.field = field;
+    }
+
+    public static Label getLabelColor() {
+        return labelColor;
+    }
+
+    public static void setLabelColor(Label labelColor) {
+        CardObservableList.labelColor = labelColor;
+    }
+
+    public static Label getLabelMana() {
+        return labelMana;
+    }
+
+    public static void setLabelMana(Label labelMana) {
+        CardObservableList.labelMana = labelMana;
+    }
+
+    public static Label getLabelAttack() {
+        return labelAttack;
+    }
+
+    public static void setLabelAttack(Label labelAttack) {
+        CardObservableList.labelAttack = labelAttack;
+    }
+
+    public static Label getLabelDefense() {
+        return labelDefense;
+    }
+
+    public static void setLabelDefense(Label labelDefense) {
+        CardObservableList.labelDefense = labelDefense;
     }
 }

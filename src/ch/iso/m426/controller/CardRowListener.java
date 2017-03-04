@@ -4,6 +4,7 @@ import ch.iso.m426.model.CardObservableList;
 import ch.iso.m426.model.Deck;
 import ch.iso.m426.model.DeckObservableList;
 import javafx.collections.ListChangeListener;
+import javafx.scene.control.Label;
 
 /**
  * Created by Serafima on 04.03.2017.
@@ -18,11 +19,17 @@ public class CardRowListener implements ListChangeListener<Integer> {
             Byte cardAttack = CardObservableList.get().get(c.getList().get(0)).getAttackValue();
             Byte cardDefense = CardObservableList.get().get(c.getList().get(0)).getDefenceValue();
             String cardMana = CardObservableList.get().get(c.getList().get(0)).getManaCost();
+
             CardObservableList.setSelectedCardName(cardName);
             CardObservableList.setSelectedCardTypes(cardTypes);
             CardObservableList.setSelectedCardAttack(cardAttack);
             CardObservableList.setSelectedCardDefense(cardDefense);
             CardObservableList.setSelectedCardMana(cardMana);
+
+            CardObservableList.getLabelTypes().setText(CardObservableList.getSelectedCardTypes());
+            CardObservableList.getLabelMana().setText(CardObservableList.getSelectedCardMana());
+            CardObservableList.getLabelAttack().setText(CardObservableList.getSelectedCardAttack()+"");
+            CardObservableList.getLabelDefense().setText(CardObservableList.getSelectedCardDefense()+"");
         }
 
     }
