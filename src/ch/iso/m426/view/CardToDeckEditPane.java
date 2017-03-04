@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
  */
 public class CardToDeckEditPane extends GridPane {
     TextField selCardName = new TextField();
+    final ComboBox selCardBox = new ComboBox();
 
     public CardToDeckEditPane() {
 
@@ -30,7 +31,7 @@ public class CardToDeckEditPane extends GridPane {
 
         Button addToDeck = new Button("Add to deck");
         addToDeck.setOnAction( (ActionEvent event) ->{
-            String name = this.selCardName.getText();
+            String name = (String)this.selCardBox.getValue();
             boolean exists = false;
             for (int i = 0; i < CardObservableList.get().size(); i++) {
                 if (CardObservableList.get().get(i).getName().toLowerCase().equals(name.toLowerCase())) {
@@ -62,6 +63,12 @@ public class CardToDeckEditPane extends GridPane {
                 }
         );
 
+
+        /* COMBOBOX STUFF START */
+        selCardBox.setPromptText("Select a card");
+        selCardBox.setItems(DatabaseHandler.loadCardNamesToList());
+        /* COMBOBOX STUFF END */
+
         add(new Label("Selected card properties:"), 0, 1);
         add(new Label(" "), 0, 2);
         add(new Label("Type:"), 0, 3);          add(new Label("some type"), 1, 3);
@@ -73,7 +80,7 @@ public class CardToDeckEditPane extends GridPane {
         add(removeFromDeck, 1, 9);
 
         add(new Label("Add cards:"), 0, 21);
-        add(selCardName, 0, 20);    add(addToDeck, 1, 20);
+        add(selCardBox, 0, 20);    add(addToDeck, 1, 20);
 
         //add(new Label("TODO: \n Add dropdown with all cards \n Add 'Add' button"), 0, 2);
 

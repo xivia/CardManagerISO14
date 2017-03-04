@@ -1,6 +1,7 @@
 package ch.iso.m426.model;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
@@ -368,6 +369,31 @@ public class DatabaseHandler {
 
             alert.showAndWait();
         }
+    }
+
+    public static ObservableList loadCardNamesToList() {
+        List<String> cards = new ArrayList<>();
+        try {
+            Connection con = getDBConnection();
+            Statement stmt;
+            String query = "SELECT cardname FROM card";
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs != null) {
+                while (rs.next()) {
+                    String name = rs.getString("CardName");
+                    cards.add(name);
+                }
+            } else {
+                cards.add("No cards exist");
+            }
+
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+        ObservableList<String> data = FXCollections.observableList(cards);
+        return data;
     }
 
 }
