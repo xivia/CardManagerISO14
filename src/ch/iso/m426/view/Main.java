@@ -16,7 +16,7 @@ public class Main extends Application {
 			root.setTop(new CardManagerMenu(root));
 
 			// Set title
-			primaryStage.setTitle("Card-Manager");
+			primaryStage.setTitle(Constants.WINDOW_TITLE);
 			primaryStage.setMinHeight(500);
 			primaryStage.setMinWidth(500);
 

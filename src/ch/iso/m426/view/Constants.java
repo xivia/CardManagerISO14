@@ -2,7 +2,8 @@ package ch.iso.m426.view;
 
 public class Constants {
 	
-	// Menu
+	public static String WINDOW_TITLE = "Card-Manager";
+
 	public static String MENU_TITLE_MANAGE = "Verwalten";
 	public static String MENU_TITLE_HELP = "Help";
 
