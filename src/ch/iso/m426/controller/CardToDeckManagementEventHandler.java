@@ -5,6 +5,7 @@ import ch.iso.m426.view.CardToDeckTableView;
 import ch.iso.m426.view.EditDeckView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -24,6 +25,11 @@ public class CardToDeckManagementEventHandler implements EventHandler<ActionEven
         System.out.println("Selected deck name (edit): "+ DeckObservableList.getSelectedDeckName());
         if (DeckObservableList.getSelectedDeckName() != null) {
             this.cardManagerBorderPane.setCenter(new EditDeckView());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Please select a deck");
+            alert.showAndWait();
         }
     }
 }

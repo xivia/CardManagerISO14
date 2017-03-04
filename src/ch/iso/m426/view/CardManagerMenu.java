@@ -15,7 +15,7 @@ public class CardManagerMenu extends MenuBar {
 		this.cardManagerBorderPane = cardManagerBorderPane;
 
 		// Add MenuEntrys to MenuBar
-		this.getMenus().addAll(makeMenuManager(), makeMenuHelp());
+		this.getMenus().addAll(makeMenuManager(), makeDeckToolsMenu(), makeMenuHelp());
 	}
 
 	private Menu makeMenuManager() {
@@ -38,14 +38,19 @@ public class CardManagerMenu extends MenuBar {
 		MenuItem managerExit = new MenuItem(Constants.SUB_MENU_TITLE_MANAGER_EXIT);
 		managerExit.setOnAction(new ExitEventHandler());
 
-		//TODO: remove this menu element after testing
-		MenuItem c2dTest = new MenuItem("Show c2d table view (TEST)");
-		c2dTest.setOnAction(new CardToDeckManagementEventHandler(cardManagerBorderPane));
-
 		// Add Items to MenuEntrys
-		manager.getItems().addAll(createCards, createDecks, managerCards, managerDeck, managerExit, c2dTest);
+		manager.getItems().addAll(createCards, createDecks, managerCards, managerDeck, managerExit);
 
 		return manager;
+	}
+
+	private Menu makeDeckToolsMenu() {
+		Menu deckTools = new Menu("Deck Tools");
+		MenuItem manageSelectedDeck = new MenuItem("Manage selected deck");
+		manageSelectedDeck.setOnAction(new CardToDeckManagementEventHandler(cardManagerBorderPane));
+		deckTools.getItems().add(manageSelectedDeck);
+
+		return deckTools;
 	}
 
 	private Menu makeMenuHelp() {

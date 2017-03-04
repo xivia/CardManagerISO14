@@ -12,8 +12,6 @@ public class EditDeckView extends BorderPane {
     public String deckName;
 
     public EditDeckView() {
-
-
         CardToDeckTableView c2dView = new CardToDeckTableView();
         CardToDeckEditPane  c2dPane = new CardToDeckEditPane();
         this.setCenter(c2dView);

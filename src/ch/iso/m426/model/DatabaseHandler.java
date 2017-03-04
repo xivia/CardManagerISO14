@@ -50,7 +50,7 @@ public class DatabaseHandler {
             Statement stmt;
 
             //String query = "SELECT * FROM card";
-            String query = "SELECT * FROM card";
+            String query = "SELECT * FROM card JOIN card_to_deck ON card.cardid=card_to_deck.cardid JOIN deck ON card_to_deck.deckid=deck.deckid WHERE card_to_deck.deckid=(SELECT deckid FROM deck WHERE deckname LIKE '"+DeckObservableList.getSelectedDeckName()+"');";
 
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -65,9 +65,9 @@ public class DatabaseHandler {
                 String mana = rs.getString("CardMana");
                 String attack = rs.getString("CardAttack");
                 String defence = rs.getString("CardDefense");
-                String text = rs.getString("CardText");
+                /*String text = rs.getString("CardText");
                 String flavor = rs.getString("CardFlavorText");
-                String editionId = rs.getString("EdiId");
+                String editionId = rs.getString("EdiId");*/
 
                 Byte b = 1;
                 String a[] = {"type1", "type2"};
@@ -84,6 +84,8 @@ public class DatabaseHandler {
                 //Card c = new Card("name", a, "edition", "erd", "waerqw", "", "", "", b, b);
                 CardObservableList.get().add(c);
             }
+            // clear deck selection after data is loaded
+            DeckObservableList.setSelectedDeckName(null);
         } catch(SQLException e) {
             System.out.println(e);
         }
