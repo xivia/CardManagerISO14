@@ -2,6 +2,7 @@ package ch.iso.m426.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -360,6 +361,12 @@ public class DatabaseHandler {
                     "(SELECT deckid FROM deck WHERE deckName LIKE '"+DeckObservableList.getSelectedDeckName()+"' ));");
         } catch(SQLException e) {
             System.out.println(e);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No such card found");
+            alert.setHeaderText(null);
+            alert.setContentText("The card \""+name+"\" does not exist.");
+
+            alert.showAndWait();
         }
     }
 

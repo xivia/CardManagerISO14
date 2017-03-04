@@ -31,12 +31,26 @@ public class CardToDeckEditPane extends GridPane {
         Button addToDeck = new Button("Add to deck");
         addToDeck.setOnAction( (ActionEvent event) ->{
             String name = this.selCardName.getText();
-            System.out.println(name);
-            DatabaseHandler.addCardToDeckByName(name);
-            CardObservableList.get().clear();
-            DatabaseHandler.getCardsToDeck();
+            boolean exists = false;
+            for (int i = 0; i < CardObservableList.get().size(); i++) {
+                if (CardObservableList.get().get(i).getName().toLowerCase().equals(name.toLowerCase())) {
+                    exists = true;
                 }
-        );
+            }
+
+            if (!exists) {
+                DatabaseHandler.addCardToDeckByName(name);
+                CardObservableList.get().clear();
+                DatabaseHandler.getCardsToDeck();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Note:");
+                alert.setHeaderText(null);
+                alert.setContentText("The card \""+name+"\" already exists in this deck.");
+
+                alert.showAndWait();
+            }
+        });
 
         Button removeFromDeck = new Button("Remove from deck");
         removeFromDeck.setOnAction( (ActionEvent event) ->{
