@@ -1,7 +1,9 @@
 package ch.iso.m426.view;
 
+import ch.iso.m426.controller.DeckRowListener;
 import ch.iso.m426.model.Card;
 import ch.iso.m426.model.CardObservableList;
+import ch.iso.m426.model.Deck;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -48,7 +50,6 @@ public class CardTableView<T> extends TableView<Card> {
         TableColumn<Card, String> defCol = new TableColumn<Card, String>("Defence");
         defCol.setCellValueFactory(new PropertyValueFactory<Card, String>("defenceValue"));
         defCol.setPrefWidth(120);
-
 
         // some static data in the list
         String a[] = {"type1", "type2"};

@@ -1,13 +1,16 @@
 package ch.iso.m426.view;
 
+import ch.iso.m426.controller.CardRowListener;
 import ch.iso.m426.model.Card;
 import ch.iso.m426.model.CardObservableList;
 import ch.iso.m426.model.DatabaseHandler;
 import ch.iso.m426.model.Deck;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.util.Callback;
 
 /**
  * Created by Serafima on 27.02.2017.
@@ -22,18 +25,31 @@ public class CardToDeckTableView<T> extends TableView<Card> {
         nameCol.setCellValueFactory(new PropertyValueFactory<Card, String>("name"));
         nameCol.setPrefWidth(500);
 
-        /*TableColumn<Card, String> manaCol = new TableColumn<Card, String>("Mana");
-        manaCol.setCellValueFactory(new PropertyValueFactory<Card, String>("manaCost"));
-        manaCol.setPrefWidth(120);
+        TableColumn<Card, String> factoryCol = new TableColumn<Card, String>("");
+        factoryCol.setCellValueFactory(new PropertyValueFactory<Card, String>(""));
+        factoryCol.setPrefWidth(0);
 
-        TableColumn<Card, String> attackCol = new TableColumn<Card, String>("Attack");
-        attackCol.setCellValueFactory(new PropertyValueFactory<Card, String>("attackValue"));
-        attackCol.setPrefWidth(120);
+        Callback<TableColumn<Card, String>, TableCell<Card, String>> cellFactory = new Callback<TableColumn<Card, String>, TableCell<Card, String>>() {
+            @Override
+            public TableCell<Card, String> call(TableColumn<Card, String> param) {
 
-        TableColumn<Card, String> defCol = new TableColumn<Card, String>("Defence");
-        defCol.setCellValueFactory(new PropertyValueFactory<Card, String>("defenceValue"));
-        defCol.setPrefWidth(120);*/
+                final TableCell<Card, String> cell = new TableCell<Card, String>() {
 
+                    public void updateItem(String item, boolean empty) {
+                        //super.updateItem(item, empty);
+                        if (empty) {
+                            //System.out.println("empty");
+                        } else {
+                            super.getTableView().getSelectionModel().getSelectedIndices().addListener(new CardRowListener());
+                        }
+                    }
+
+                };
+
+                return cell;
+            }
+        };
+        factoryCol.setCellFactory(cellFactory);
 
         // some static data in the list
         String a[] = {"type1", "type2"};
@@ -43,7 +59,7 @@ public class CardToDeckTableView<T> extends TableView<Card> {
 
         DatabaseHandler.getCardsToDeck();
 
-        this.getColumns().addAll(nameCol);
+        this.getColumns().addAll(nameCol, factoryCol);
         this.setItems(CardObservableList.get());
         CardObservableList.setTable(this);
 

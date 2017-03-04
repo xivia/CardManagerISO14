@@ -55,7 +55,7 @@ public class DatabaseHandler {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-
+            CardObservableList.get().clear();
 
             while (rs.next()) {
                 System.out.println("card found");
@@ -84,8 +84,6 @@ public class DatabaseHandler {
                 //Card c = new Card("name", a, "edition", "erd", "waerqw", "", "", "", b, b);
                 CardObservableList.get().add(c);
             }
-            // clear deck selection after data is loaded
-            DeckObservableList.setSelectedDeckName(null);
         } catch(SQLException e) {
             System.out.println(e);
         }
@@ -296,6 +294,58 @@ public class DatabaseHandler {
 
     }
 
+    public static Card findCardByName(String cardName) {
+        Byte b = 1;
+        String a[] = {"type1", "type2"};
+        Card card = new Card("", a, "", "", "" ,"", "" ,"", b, b);
+        try {
+            Connection con = getDBConnection();
+            Statement stmt;
+
+            //String query = "SELECT * FROM card";
+            String query = "SELECT * FROM card WHERE cardName like '"+cardName+"'";
+
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+
+
+            while (rs.next()) {
+                String name = rs.getString("CardName");
+                String typeString = rs.getString("CardTyp");
+                String color = rs.getString("CardColor");
+                String mana = rs.getString("CardMana");
+                String attack = rs.getString("CardAttack");
+                String defence = rs.getString("CardDefense");
+                Byte attack_byte = (byte) Integer.parseInt(attack);
+                Byte defence_byte = (byte) Integer.parseInt(defence);
+                String[] types = typeString.split(", ");
+
+                card = new Card(name, types, "none", color, mana, "none", "none", "none", attack_byte, defence_byte);
+            }
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+        return card;
+    }
+
+    public static void removeCardToDeckBYCardName(String cardName){
+        System.out.println("Removing from deck: "+cardName+" / "+DeckObservableList.getSelectedDeckName());
+        try {
+            Connection con = getDBConnection();
+            Statement stmt;
+            String query = "DELETE ctd.* FROM card_to_deck AS ctd\n" +
+                    "JOIN card AS c\n" +
+                    "ON ctd.cardid=c.cardid\n" +
+                    "JOIN deck AS d\n" +
+                    "ON ctd.deckid=d.deckid\n" +
+                    "WHERE c.cardname like '"+cardName+"' AND d.deckname LIKE '"+DeckObservableList.getSelectedDeckName()+"';";
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+    }
 
 
 }
