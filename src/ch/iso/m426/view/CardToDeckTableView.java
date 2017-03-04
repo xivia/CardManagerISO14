@@ -7,11 +7,13 @@ import ch.iso.m426.model.Deck;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.shape.StrokeLineCap;
 
 /**
  * Created by Serafima on 27.02.2017.
  */
 public class CardToDeckTableView<T> extends TableView<Card> {
+    public String deckName;
 
     public CardToDeckTableView(){
         super();

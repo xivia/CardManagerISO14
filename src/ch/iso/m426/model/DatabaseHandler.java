@@ -12,7 +12,7 @@ public class DatabaseHandler {
     static final String DB_URL = "jdbc:mysql://localhost/cardmanager?useSSL=false";
 
     static final String DB_USER = "root";
-    static final String DB_PASS = "root";
+    static final String DB_PASS = "";
 
     public DatabaseHandler() {}
 
@@ -72,12 +72,15 @@ public class DatabaseHandler {
                 Byte b = 1;
                 String a[] = {"type1", "type2"};
 
-                //Byte att = Byte.parseByte();
+
+                Byte attack_byte = (byte) Integer.parseInt(attack);
+                Byte defence_byte = (byte) Integer.parseInt(defence);
 
 
                 String[] types = typeString.split(", ");
 
-                Card c = new Card(name, types, "none", color, mana, "none", "none", "none", b, b);
+                Card c = new Card(name, types, "none", color, mana, "none", "none", "none", attack_byte, defence_byte);
+                //Card c = new Card(name, types, "none", color, mana, "none", "none", "none", b, b);
                 //Card c = new Card("name", a, "edition", "erd", "waerqw", "", "", "", b, b);
                 CardObservableList.get().add(c);
             }

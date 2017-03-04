@@ -3,6 +3,7 @@ package ch.iso.m426.controller;
 import ch.iso.m426.model.DatabaseHandler;
 import ch.iso.m426.view.DeckTableView;
 import ch.iso.m426.view.DeleteButton;
+import ch.iso.m426.view.ManageDeckButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

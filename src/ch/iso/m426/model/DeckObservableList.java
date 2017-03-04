@@ -10,6 +10,7 @@ public class DeckObservableList {
 
     private final static ObservableList<Deck> decks = FXCollections.observableArrayList();
     private static TableView<Deck> deckTable = null;
+    public static String selectedDeckName = null;
 
     public static ObservableList<Deck> get(){
         return decks;
@@ -24,6 +25,14 @@ public class DeckObservableList {
         DeckObservableList.get().clear();
         DatabaseHandler.getAllDecks();
         DeckObservableList.deckTable = table;
+    }
+
+    public static String getSelectedDeckName() {
+        return selectedDeckName;
+    }
+
+    public static void setSelectedDeckName(String selectedDeckName) {
+        DeckObservableList.selectedDeckName = selectedDeckName;
     }
 
 }
