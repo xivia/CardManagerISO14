@@ -1,5 +1,6 @@
 package ch.iso.m426.view;
 
+import ch.iso.m426.controller.CreateDeckViewEventHandler;
 import ch.iso.m426.model.DatabaseHandler;
 import ch.iso.m426.model.Deck;
 import javafx.collections.FXCollections;
@@ -15,11 +16,15 @@ import javafx.scene.text.Text;
 import java.lang.invoke.LambdaMetafactory;
 
 public class CreateDeckView extends GridPane{
+
     private Label lblName = new Label(Constants.CREATE_DECK_LABEL_NAME);
     private TextField tfName = new TextField();
+
     private Label lblFormat = new Label(Constants.CREATE_DECK_LABEL_FORMAT);
     private ComboBox cmbFormat = new ComboBox(FXCollections.observableArrayList(Deck.FORMAT.values()));
+
     private Button btnAddDeck = new Button(Constants.CREATE_DECK_BUTTON);
+
     private Text statusText = new Text();
 
     public CreateDeckView(){
@@ -35,38 +40,23 @@ public class CreateDeckView extends GridPane{
         cmbFormat.getSelectionModel().select(3);
         add(cmbFormat, 1, 1);
 
-        btnAddDeck.setOnAction(event -> addDeck());
+        btnAddDeck.setOnAction(new CreateDeckViewEventHandler(this));
         btnAddDeck.setPrefHeight(40);
         btnAddDeck.setPrefWidth(100);
         add(btnAddDeck, 1, 2);
 
-        add(statusText, 3, 1);
+        add(statusText, 1, 3);
     }
 
-    private void addDeck() {
-        String comboBoxValue;
-        if(this.cmbFormat.getValue() != null) {
-            comboBoxValue = this.cmbFormat.getValue().toString();
-        } else {
-            comboBoxValue = "";
-        }
+    public TextField getTfName() {
+        return tfName;
+    }
 
-        String name = this.tfName.getText();
-        Deck.FORMAT format = Deck.FORMAT.CASUAL;
+    public ComboBox getCmbFormat() {
+        return cmbFormat;
+    }
 
-        for(Deck.FORMAT f : Deck.FORMAT.values()) {
-            if(f.name().equals(comboBoxValue)) {
-                format = f;
-            }
-        }
-
-        Deck deck = new Deck(name, format);
-        try {
-            DatabaseHandler.saveDeck(deck);
-            statusText.setText(Constants.CREATE_DECK_STATUS_CREATED);
-        } catch (Exception e) {
-            System.out.print(e);
-            statusText.setText(Constants.CREATE_DECK_STATUS_ALREADY_EXIST);
-        }
+    public Text getStatusText() {
+        return statusText;
     }
 }
