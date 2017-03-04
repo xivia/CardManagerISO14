@@ -1,5 +1,6 @@
 package ch.iso.m426.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
@@ -347,5 +348,19 @@ public class DatabaseHandler {
         }
     }
 
+    public static void addCardToDeckByName(String name) {
+        try {
+            Connection con = getDBConnection();
+            Statement stmt;
+            String query = "";
+            stmt = con.createStatement();
+            stmt.executeUpdate("INSERT INTO card_to_deck (cardid, deckid) \n" +
+                    "VALUES (\n" +
+                    "(SELECT cardid FROM card WHERE cardName LIKE '"+name+"'), \n" +
+                    "(SELECT deckid FROM deck WHERE deckName LIKE '"+DeckObservableList.getSelectedDeckName()+"' ));");
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+    }
 
 }

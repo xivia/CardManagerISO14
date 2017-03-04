@@ -3,14 +3,14 @@ package ch.iso.m426.view;
 import ch.iso.m426.model.Card;
 import ch.iso.m426.model.CardObservableList;
 import ch.iso.m426.model.DatabaseHandler;
+import ch.iso.m426.model.Deck;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
  * Created by Serafima on 27.02.2017.
  */
 public class CardToDeckEditPane extends GridPane {
+    TextField selCardName = new TextField();
 
     public CardToDeckEditPane() {
 
@@ -26,6 +27,16 @@ public class CardToDeckEditPane extends GridPane {
         this.setVgap(20);
         this.setPadding(new Insets(25, 25, 25, 25));
         this.setPrefWidth(400);
+
+        Button addToDeck = new Button("Add to deck");
+        addToDeck.setOnAction( (ActionEvent event) ->{
+            String name = this.selCardName.getText();
+            System.out.println(name);
+            DatabaseHandler.addCardToDeckByName(name);
+            CardObservableList.get().clear();
+            DatabaseHandler.getCardsToDeck();
+                }
+        );
 
         Button removeFromDeck = new Button("Remove from deck");
         removeFromDeck.setOnAction( (ActionEvent event) ->{
@@ -48,10 +59,17 @@ public class CardToDeckEditPane extends GridPane {
         add(removeFromDeck, 1, 9);
 
         add(new Label("Add cards:"), 0, 21);
-        add(new Label("[DROPDOWN]"), 0, 20);    add(new Label("Add to deck"), 1, 20);
+        add(selCardName, 0, 20);    add(addToDeck, 1, 20);
 
         //add(new Label("TODO: \n Add dropdown with all cards \n Add 'Add' button"), 0, 2);
 
+    }
+
+    private void addCardToDeck() {
+        String name = this.selCardName.getText();
+        DatabaseHandler.addCardToDeckByName(name);
+        CardObservableList.get().clear();
+        DatabaseHandler.getCardsToDeck();
     }
 
 }
