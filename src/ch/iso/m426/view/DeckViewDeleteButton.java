@@ -12,6 +12,7 @@ public class DeckViewDeleteButton extends Button {
 
         this.setText(Constants.DELETE_BUTTON_TEXT);
         this.setOnAction(new DeckViewDeleteButtonEventHandler());
+        this.setPrefWidth(Double.MAX_VALUE);
 
     }
 

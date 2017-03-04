@@ -25,6 +25,7 @@ public class CardToDeckManagementEventHandler implements EventHandler<ActionEven
         System.out.println("Selected deck name (edit): "+ DeckObservableList.getSelectedDeckName());
         if (DeckObservableList.getSelectedDeckName() != null) {
             this.cardManagerBorderPane.setCenter(new EditDeckView());
+            this.cardManagerBorderPane.setBottom(null);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
