@@ -1,6 +1,7 @@
 package ch.iso.m426.controller;
 
 
+import ch.iso.m426.model.DatabaseHandler;
 import ch.iso.m426.model.HelpObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,7 +19,7 @@ public class HelpEventHandler implements EventHandler<ActionEvent>{
 		alert.setTitle("Information Dialog");
 		alert.setHeaderText("Card Manager");
 		
-		HelpObservableList.loadData();
+		DatabaseHandler.loadHelpData();
 		
 				alert.setContentText(HelpObservableList.get().get(0).getHelpText());
 

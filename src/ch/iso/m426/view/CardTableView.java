@@ -3,6 +3,7 @@ package ch.iso.m426.view;
 import ch.iso.m426.controller.DeckRowListener;
 import ch.iso.m426.model.Card;
 import ch.iso.m426.model.CardObservableList;
+import ch.iso.m426.model.DatabaseHandler;
 import ch.iso.m426.model.Deck;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -52,12 +53,13 @@ public class CardTableView<T> extends TableView<Card> {
         defCol.setPrefWidth(120);
 
         // some static data in the list
-        String a[] = {"type1", "type2"};
-        Byte b = 1;
+        //String a[] = {"type1", "type2"};
+        //Byte b = 1;
         //CardObservableList.get().add(new Card("Test", a, a, "edition 1", "2", "rule", "text", b, b));
         //CardObservableList.get().add(new Card("Test", a, a, "edition 2", "mana cost", "rule", "text", b, b));
 
         CardObservableList.get().clear();
+        DatabaseHandler.getAllCards();
         this.getColumns().addAll(nameCol, typeCol, editionCol, manaCol, ruleCol, storyCol, attackCol, defCol);
         this.setItems(CardObservableList.get());
         CardObservableList.setTable(this);

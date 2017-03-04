@@ -46,6 +46,42 @@ public class DatabaseHandler {
             System.out.println(e);
         }
     }
+    
+    public static void getAllCards(){
+        try {
+            Connection con = getDBConnection();
+            Statement stmt;
+
+            String query = "SELECT * FROM card";
+   
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            CardObservableList.get().clear();
+
+            while (rs.next()) {
+                System.out.println("card found");
+                String name = rs.getString("CardName");
+                String typeString = rs.getString("CardTyp");
+                String color = rs.getString("CardColor");
+                String mana = rs.getString("CardMana");
+                byte attack = rs.getByte("CardAttack");
+                byte defence = rs.getByte("CardDefense");
+                String text = rs.getString("CardText");
+                String flavor = rs.getString("CardFlavorText");
+                String editionId = rs.getString("EdiId");
+                String artist = rs.getString("CardArtist");
+                
+                String[] types = typeString.split(", ");
+
+                Card card = new Card(name, types, editionId, color, mana, text, flavor, artist, attack, defence);
+
+                CardObservableList.get().add(card);
+            }
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+    }
 
     public static void getCardsToDeck(){
         try {
@@ -397,5 +433,26 @@ public class DatabaseHandler {
         ObservableList<String> data = FXCollections.observableList(cards);
         return data;
     }
+    
+
+
+	
+		public static void loadHelpData() {
+		try {
+			Class.forName(JDBC_DRIVER);
+			Connection con = getDBConnection();
+			Statement stmt = con.createStatement();
+           
+			ResultSet rs = stmt.executeQuery("SELECT HelpText FROM `help;");
+
+		while (rs.next()) {
+				String helpText = rs.getString("HelpText");
+				HelpObservableList.get().add(new Help(helpText ));
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
