@@ -15,12 +15,12 @@ public class CardViewPaneButtonBar extends HBox {
 		this.setPadding(new Insets(15, 12, 15, 12));
 		this.setSpacing(10);
 		this.cardManagerBorderPane = cardManagerBorderPane;
-		Button buttonCard = new Button("Karten Verwalten");
+		Button buttonCard = new Button(Constants.MANAGER_CARDS_BUTTON_TEXT);
 		buttonCard.setPrefSize(150, 20);
 		buttonCard.setOnAction(new CardManagementEventHandler(cardManagerBorderPane));
 		
 
-		Button buttonDeck = new Button("Deck Verwalten");
+		Button buttonDeck = new Button(Constants.MANAGER_DECK_BUTTON_TEXT);
 		buttonDeck.setPrefSize(150,20);
 		buttonDeck.setOnAction(new DeckManagementEventHandler(this.cardManagerBorderPane));
 		

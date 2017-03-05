@@ -27,4 +27,10 @@ public class Constants {
 	public static String CREATE_DECK_STATUS_ALREADY_EXIST = "Deck gibt es schon";
 	public static String CREATE_DECK_STATUS_CREATED = "Deck erstellt";
 
+	public static String START_PAGE = "Startseite";
+	public static String MANAGER_CARDS_BUTTON_TEXT = "Karten verwalten";
+	public static String MANAGER_DECK_BUTTON_TEXT = "Decks verwalten";
+
+	
+	
 }

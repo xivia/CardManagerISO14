@@ -23,6 +23,9 @@ public class CardManagerMenu extends MenuBar {
 		// Menu Entry 1
 		Menu manager = new Menu(Constants.MENU_TITLE_MANAGE);
 
+		MenuItem startPage = new MenuItem(Constants.START_PAGE);
+		startPage.setOnAction(new StartPageEventHandler(cardManagerBorderPane));
+		
 		MenuItem createCards = new MenuItem(Constants.SUB_MENU_TITLE_CREATE_CARDS);
 		createCards.setOnAction(new CreateCardsEventHandler(cardManagerBorderPane));
 
@@ -39,7 +42,7 @@ public class CardManagerMenu extends MenuBar {
 		managerExit.setOnAction(new ExitEventHandler());
 
 		// Add Items to MenuEntrys
-		manager.getItems().addAll(createCards, createDecks, managerCards, managerDeck, managerExit);
+		manager.getItems().addAll(startPage, createCards, createDecks, managerCards, managerDeck, managerExit);
 
 		return manager;
 	}
