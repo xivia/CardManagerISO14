@@ -23,5 +23,8 @@ public class CardManagementEventHandler implements EventHandler<ActionEvent>{
     @Override
     public void handle(ActionEvent event) {
         this.cardManagerBorderPane.setCenter(new CardTableView<Object>());
+        
+        //Overwrite the Delete Button from DeckManager
+        this.cardManagerBorderPane.setBottom(null);
     }
 }

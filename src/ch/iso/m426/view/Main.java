@@ -14,7 +14,11 @@ public class Main extends Application {
 			
 			// Place menu at Top
 			root.setTop(new CardManagerMenu(root));
+			
+			// Place Titlescreen at Center
+			root.setCenter(new CardViewPane(root));
 
+			
 			// Set title
 			primaryStage.setTitle(Constants.WINDOW_TITLE);
 			primaryStage.setMinHeight(500);
