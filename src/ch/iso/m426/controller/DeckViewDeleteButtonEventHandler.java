@@ -14,6 +14,7 @@ public class DeckViewDeleteButtonEventHandler implements EventHandler<ActionEven
             DatabaseHandler.deleteDeck(name);
             DeckObservableList.get().clear();
             DatabaseHandler.getAllDecks();
+            DeckObservableList.setSelectedDeckName(null); // remove deleted deck from selection
         } catch (Exception e) {
             System.out.println(e);
         }
